@@ -5,28 +5,29 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_message"
-            android:icon="@drawable/ic_message"
-            android:title="Message" />
+            android:id="@+id/nav_running_in_theaters"
+            android:icon="@drawable/ic_movie"
+            android:title="@string/running_in_theaters" />
         <item
-            android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_chat"
-            android:title="Chat" />
+            android:id="@+id/nav_bookings"
+            android:icon="@drawable/ic_bookings"
+            android:title="@string/bookings" />
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="Profile" />
+            android:id="@+id/nav_watched_movies"
+            android:icon="@drawable/ic_history"
+            android:title="@string/watched_movies" />
+        <item
+            android:id="@+id/nav_search_movie"
+            android:icon="@drawable/ic_search_movie"
+            android:title="@string/search_movie"/>
+
     </group>
-    <item android:title="Communicate">
+    <item android:title="@string/actions">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_baseline_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_baseline_send"
-                android:title="Send" />
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/log_out" />
         </menu>
     </item>
 </menu>

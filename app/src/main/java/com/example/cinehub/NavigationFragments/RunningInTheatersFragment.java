@@ -11,15 +11,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.cinehub.R;
-import com.example.cinehub.databinding.FragmentMessageBinding;
+import com.example.cinehub.databinding.FragmentRunningInTheatersBinding;
 
-public class MessageFragment extends Fragment {
 
-    private FragmentMessageBinding databinding;
+public class RunningInTheatersFragment extends Fragment {
+
+    private FragmentRunningInTheatersBinding databinding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message, container, false);
+        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_running_in_theaters, container, false);
 
         return  databinding.getRoot();
     }

@@ -14,5 +14,11 @@
 
 <!--    error messages-->
     <string name="no_movie_title_entered">Movie title is required</string>
+    <string name="watched_movies">Watched movies</string>
+    <string name="running_in_theaters">Running in theaters</string>
+    <string name="bookings">Bookings</string>
+    <string name="search_movie">Search Movie</string>
+    <string name="log_out">Log out</string>
+    <string name="actions">Actions</string>
 
 </resources>

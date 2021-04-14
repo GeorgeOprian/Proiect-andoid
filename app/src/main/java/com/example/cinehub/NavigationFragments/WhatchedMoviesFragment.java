@@ -11,16 +11,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.cinehub.R;
-import com.example.cinehub.databinding.FragmentChatBinding;
-import com.example.cinehub.databinding.FragmentProfileBinding;
+import com.example.cinehub.databinding.FragmentWatchedMoviesBinding;
 
-public class ProfileFragment extends Fragment {
+public class WhatchedMoviesFragment extends Fragment {
 
-    private FragmentProfileBinding databinding;
+    private FragmentWatchedMoviesBinding databinding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
+        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_watched_movies, container, false);
 
         return  databinding.getRoot();
     }

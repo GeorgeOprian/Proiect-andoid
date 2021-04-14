@@ -11,9 +11,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.cinehub.NavigationFragments.ChatFragment;
-import com.example.cinehub.NavigationFragments.MessageFragment;
-import com.example.cinehub.NavigationFragments.ProfileFragment;
+import com.example.cinehub.NavigationFragments.BookingsFragment;
+import com.example.cinehub.NavigationFragments.RunningInTheatersFragment;
+import com.example.cinehub.NavigationFragments.SearchMovieFragment;
+import com.example.cinehub.NavigationFragments.WhatchedMoviesFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         if (savedInstanceState == null) { //poate fi null daca intram prima data in activitate sau daca dam back, pe rotate nu o sa fie null si nu o sa incarce fragmentul
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MessageFragment()).commit(); //il deschide prima data cand se deschide aplicatia
-            navigationView.setCheckedItem(R.id.nav_message); //checks message in navigation bar
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RunningInTheatersFragment()).commit(); //il deschide prima data cand se deschide aplicatia
+            navigationView.setCheckedItem(R.id.nav_running_in_theaters); //checks message in navigation bar
         }
     }
 
@@ -57,20 +58,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) { //navigare intre fragmente
-            case R.id.nav_message:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MessageFragment()).commit();
+            case R.id.nav_running_in_theaters:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RunningInTheatersFragment()).commit();
                 break;
-            case R.id.nav_chat:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).commit();
+            case R.id.nav_bookings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BookingsFragment()).commit();
                 break;
-            case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+            case R.id.nav_watched_movies:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhatchedMoviesFragment()).commit();
                 break;
-            case R.id.nav_share:
-                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+            case R.id.nav_search_movie:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchMovieFragment()).commit();
                 break;
-            case R.id.nav_send:
-                Toast.makeText(this, "Send", Toast.LENGTH_SHORT).show();
+            case R.id.nav_logout:
+                Toast.makeText(this, "Log out", Toast.LENGTH_SHORT).show();
                 break;
 
         }
