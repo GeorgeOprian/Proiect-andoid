@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Cinehub</string>
+    <string name="search_movies_by_title">Search movies by title</string>
+    <string name="search">Search</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="enter_movie_title">Enter movie title</string>
+    <string name="errors_executing_query">There were some errors executing the query</string>
+
+
+    <string name="navigation_draw_open">Open navigation drawer</string>
+    <string name="navigation_draw_close">Close navigation drawer</string>
+
+
+
+<!--    error messages-->
+    <string name="no_movie_title_entered">Movie title is required</string>
+
+</resources>
