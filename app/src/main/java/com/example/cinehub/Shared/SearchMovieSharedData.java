@@ -2,7 +2,7 @@ package com.example.cinehub.Shared;
 
 
 
-import com.example.cinehub.SearchMovieActivity.Search;
+import com.example.cinehub.SearchMovieAction.Search;
 
 import java.util.ArrayList;
 import java.util.List;

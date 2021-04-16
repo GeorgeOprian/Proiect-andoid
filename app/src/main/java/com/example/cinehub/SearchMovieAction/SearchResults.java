@@ -1,4 +1,4 @@
-package com.example.cinehub.SearchMovieActivity;
+package com.example.cinehub.SearchMovieAction;
 
 import java.util.List;
 

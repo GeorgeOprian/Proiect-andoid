@@ -1,4 +1,4 @@
-package com.example.cinehub.SearchMovieActivity;
+package com.example.cinehub.SearchMovieAction;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,11 +15,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.cinehub.R;
 import com.example.cinehub.Shared.SearchMovieSharedData;
 import com.example.cinehub.databinding.FragmentSearchResultsBinding;
-import com.example.cinehub.databinding.SearchMovieActivityBinding;
 
 import java.util.List;
+/*
 
-public class SearchResultsFragment extends Fragment implements AdapterView.OnItemClickListener {
+nu mai am nevoie dea ea
+ */
+
+
+
+public class SearchResultsFragment extends Fragment implements OnItemClickListener {
 
     private MovieResultAdapter adapter;
     private FragmentSearchResultsBinding dataBinding;
@@ -49,17 +54,19 @@ public class SearchResultsFragment extends Fragment implements AdapterView.OnIte
     }
 
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
     private void initAdapter(){
-        adapter = new MovieResultAdapter();
+        adapter = new MovieResultAdapter(this);
         dataBinding.container.setLayoutManager(new GridLayoutManager(getContext(), 1));
         dataBinding.container.setAdapter(adapter);
     }
 
     public void setSearchMovieSharedData (List<Search> searchResults) {
+        searchMovieSharedData.setSearchResults(searchResults);
+    }
 
+    @Override
+    public void onItemClick(Search search) {
+        int x = 0;
+        x++;
     }
 }

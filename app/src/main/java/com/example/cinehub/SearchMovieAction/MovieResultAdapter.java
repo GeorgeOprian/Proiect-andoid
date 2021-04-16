@@ -1,23 +1,29 @@
-package com.example.cinehub.SearchMovieActivity;
+package com.example.cinehub.SearchMovieAction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 import com.example.cinehub.databinding.SearchMovieResultCardBinding;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieResultAdapter extends RecyclerView.Adapter<MovieResultAdapter.MovieViewHolder> {
 
     private List<Search> localDataSet;
+    public static OnItemClickListener itemClickListener;
+
+
+    public MovieResultAdapter(OnItemClickListener listener) {
+        itemClickListener = listener;
+    }
 
     public void submitList(List<Search> dataSet) {
         localDataSet = dataSet;
@@ -29,7 +35,7 @@ public class MovieResultAdapter extends RecyclerView.Adapter<MovieResultAdapter.
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MovieViewHolder(DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.fragment_search_results,
+                R.layout.search_movie_result_card,
                 parent,
                 false)
         );
@@ -60,6 +66,14 @@ public class MovieResultAdapter extends RecyclerView.Adapter<MovieResultAdapter.
             binding.title.setText(item.getTitle());
             binding.year.setText(item.getYear());
             Picasso.get().load(item.getPoster()).into(binding.image);
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.v("TAG", "inainte de onItemClick in adapter");
+                    itemClickListener.onItemClick(item);
+                    Log.v("TAG", "dupa de onItemClick in adapter");
+                }
+            });
         }
 
     }

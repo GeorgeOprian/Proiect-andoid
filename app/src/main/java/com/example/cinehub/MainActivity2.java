@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.example.cinehub.API.APIBuilder;
 
-import com.example.cinehub.SearchMovieActivity.SearchResults;
-import com.example.cinehub.SearchMovieActivity.SearchResultsFragment;
+import com.example.cinehub.SearchMovieAction.SearchResults;
+import com.example.cinehub.SearchMovieAction.SearchResultsFragment;
 import com.example.cinehub.Shared.SearchMovieSharedData;
 
 
@@ -87,24 +87,8 @@ public class MainActivity2 extends AppCompatActivity {
         });
     }
 
-//    private void searchMovieByTitle(String name) {
-//        Call<MovieModel> call = APIBuilder.getInstance().getMovie(APIBuilder.API_KEY, name);
-//        call.enqueue(new Callback<MovieModel>() {
-//            @Override
-//            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
-//                foundMovie = response.body();
-//                Log.v("Tag", "########################################");
-//                Log.v("Tag", foundMovie.getTitle());
-//                Log.v("Tag", "########################################");
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MovieModel> call, Throwable t) {
-//                int x;
-//            }
-//        });
-//    }
-//
+
+
     private void showNoMovieTitleEnteredMessage() {
         Toast.makeText(this, getString(R.string.errors_executing_query), Toast.LENGTH_LONG).show();
     }
