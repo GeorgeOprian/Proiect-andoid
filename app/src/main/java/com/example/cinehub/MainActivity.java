@@ -2,7 +2,6 @@ package com.example.cinehub;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -11,7 +10,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+
 import com.example.cinehub.NavigationFragments.BookingsFragment;
+import com.example.cinehub.NavigationFragments.LogInFragment;
 import com.example.cinehub.NavigationFragments.RunningInTheatersFragment;
 import com.example.cinehub.NavigationFragments.SearchMovieFragment;
 import com.example.cinehub.NavigationFragments.WhatchedMoviesFragment;
@@ -73,9 +74,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_search_movie:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchMovieFragment()).commit();
                 break;
-            case R.id.nav_logout:
-                Toast.makeText(this, "Log out", Toast.LENGTH_SHORT).show();
+            case R.id.nav_log_in:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LogInFragment()).commit();
                 break;
+
 
         }
 
