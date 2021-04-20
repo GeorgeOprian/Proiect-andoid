@@ -1,7 +1,6 @@
 package com.example.cinehub.NavigationFragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +18,18 @@ import com.example.cinehub.API.APIBuilder;
 import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 import com.example.cinehub.SearchMovieAction.MovieResultAdapter;
-import com.example.cinehub.SearchMovieAction.OnItemClickListener;
+import com.example.cinehub.SearchMovieAction.OnSearchItemClickListener;
 import com.example.cinehub.SearchMovieAction.Search;
 import com.example.cinehub.SearchMovieAction.SearchResults;
 import com.example.cinehub.databinding.FragmentSearchMovieBinding;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchMovieFragment extends Fragment implements OnItemClickListener {
+public class SearchMovieFragment extends Fragment implements OnSearchItemClickListener {
 
     private FragmentSearchMovieBinding databinding;
     private Button searchButton;
@@ -37,6 +38,9 @@ public class SearchMovieFragment extends Fragment implements OnItemClickListener
 
     private SearchResults searchResults;
     private MovieModel movie;
+
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
     @Nullable
     @Override
@@ -72,17 +76,16 @@ public class SearchMovieFragment extends Fragment implements OnItemClickListener
         call.enqueue(new Callback<SearchResults>() {
             @Override
             public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
-                searchResults = response.body();
+                if (response.code() == 200) {
+                    searchResults = response.body();
 //                searchMovieSharedData.setSearchResults(searchResults.getSearch());
 //                searchResultsFragment.setSearchMovieSharedData(searchResults.getSearch());
-                adapter.submitList(searchResults.getSearch());
+                    adapter.submitList(searchResults.getSearch());
 
-                //pasam la fragment
-
-//                searchResultsText.setText(searchResults.getSearch().get(0).toString());
-                Log.v("Tag", "########################################");
-                Log.v("Tag", searchResults.getTotalResults());
-                Log.v("Tag", "########################################");
+                    //pasam la fragment
+                } else if (response.code() == 404) {
+                    Toast.makeText(getContext(), "Movie not found", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
@@ -99,15 +102,9 @@ public class SearchMovieFragment extends Fragment implements OnItemClickListener
             public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
                 movie = response.body();
 
-                //insert in baza de date
-
-
-//                searchResultsText.setText(searchResults.getSearch().get(0).toString());
-//                Log.v("Tag", "########################################");
-//                Log.v("Tag", movie.getGenre());
-//                Log.v("Tag", "########################################");
-//
-
+                rootNode = FirebaseDatabase.getInstance();
+                reference = rootNode.getReference("Movies");
+                reference.child(movie.getImdbID()).setValue(movie);
             }
 
             @Override
@@ -122,7 +119,7 @@ public class SearchMovieFragment extends Fragment implements OnItemClickListener
 //        String text = "click pe film in fragment";//search.getTitle();
 //        Log.v("TAG", text);
 
-        loadMovieByIDMBId(search.getImdbID());;
+        loadMovieByIDMBId(search.getImdbID());
 
     }
 

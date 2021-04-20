@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +23,7 @@ nu mai am nevoie dea ea
 
 
 
-public class SearchResultsFragment extends Fragment implements OnItemClickListener {
+public class SearchResultsFragment extends Fragment implements OnSearchItemClickListener {
 
     private MovieResultAdapter adapter;
     private FragmentSearchResultsBinding dataBinding;
@@ -40,9 +39,7 @@ public class SearchResultsFragment extends Fragment implements OnItemClickListen
 
         dataBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_search_results, container, false);
-
-        View view = dataBinding.getRoot();
-        return view;
+        return dataBinding.getRoot();
     }
 
     @Override
@@ -66,7 +63,6 @@ public class SearchResultsFragment extends Fragment implements OnItemClickListen
 
     @Override
     public void onItemClick(Search search) {
-        int x = 0;
-        x++;
+
     }
 }

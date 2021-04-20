@@ -75,10 +75,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         if (savedInstanceState == null) { //poate fi null daca intram prima data in activitate sau daca dam back, pe rotate nu o sa fie null si nu o sa incarce fragmentul
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RunningInTheatersFragment()).commit(); //il deschide prima data cand se deschide aplicatia
-//            navigationView.setCheckedItem(R.id.nav_running_in_theaters); //checks message in navigation bar
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchMovieFragment()).commit(); //il deschide prima data cand se deschide aplicatia
-            navigationView.setCheckedItem(R.id.nav_search_movie); //checks message in navigation bar
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RunningInTheatersFragment()).commit(); //il deschide prima data cand se deschide aplicatia
+            navigationView.setCheckedItem(R.id.nav_running_in_theaters); //checks message in navigation bar
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchMovieFragment()).commit(); //il deschide prima data cand se deschide aplicatia
+//            navigationView.setCheckedItem(R.id.nav_search_movie); //checks message in navigation bar
 
         }
     }

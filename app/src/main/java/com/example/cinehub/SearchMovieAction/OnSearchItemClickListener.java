@@ -1,5 +1,5 @@
 package com.example.cinehub.SearchMovieAction;
 
-public interface OnItemClickListener {
+public interface OnSearchItemClickListener {
     void onItemClick(Search search);
 }

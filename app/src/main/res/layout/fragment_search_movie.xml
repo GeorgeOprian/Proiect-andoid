@@ -11,22 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView"-->
-        <!--            android:layout_width="263dp"-->
-        <!--            android:layout_height="56dp"-->
-        <!--            android:layout_marginBottom="71dp"-->
-        <!--            android:gravity="center"-->
-        <!--            android:text="@string/search_movies_by_title"-->
-
-        <!--            android:textSize="24sp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintHorizontal_bias="0.5"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintVertical_bias="0.066" />-->
-
         <Button
             android:id="@+id/search_movie_button"
             android:layout_width="wrap_content"

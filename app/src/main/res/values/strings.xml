@@ -20,5 +20,6 @@
     <string name="search_movie">Search Movie</string>
     <string name="log_out">Log out</string>
     <string name="actions">Actions</string>
+    <string name="imdb">IMDB:</string>
 
 </resources>
