@@ -78,13 +78,13 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
             public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
                 if (response.code() == 200) {
                     searchResults = response.body();
-//                searchMovieSharedData.setSearchResults(searchResults.getSearch());
-//                searchResultsFragment.setSearchMovieSharedData(searchResults.getSearch());
                     adapter.submitList(searchResults.getSearch());
 
                     //pasam la fragment
                 } else if (response.code() == 404) {
                     Toast.makeText(getContext(), "Movie not found", Toast.LENGTH_LONG).show();
+                } else {
+                    showNoMovieTitleEnteredMessage();
                 }
             }
 
@@ -100,11 +100,15 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
         call.enqueue(new Callback<MovieModel>() {
             @Override
             public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
-                movie = response.body();
-
-                rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("Movies");
-                reference.child(movie.getImdbID()).setValue(movie);
+                if (response.code() == 200) {
+                    movie = response.body();
+                    rootNode = FirebaseDatabase.getInstance();
+                    reference = rootNode.getReference("Movies");
+                    reference.child(movie.getImdbID()).setValue(movie);
+                    Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
+                } else  {
+                    showNoMovieTitleEnteredMessage();
+                }
             }
 
             @Override
@@ -116,13 +120,9 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
 
     @Override
     public void onItemClick(Search search) {
-//        String text = "click pe film in fragment";//search.getTitle();
-//        Log.v("TAG", text);
-
         loadMovieByIDMBId(search.getImdbID());
 
     }
-
 
     private void showNoMovieTitleEnteredMessage() {
         Toast.makeText(getContext(), getString(R.string.errors_executing_query), Toast.LENGTH_LONG).show();
@@ -138,17 +138,3 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
         databinding.container.setAdapter(adapter);
     }
 }
-
-/*
-public class WhatchedMoviesFragment extends Fragment {
-
-    private FragmentWatchedMoviesBinding databinding;
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_watched_movies, container, false);
-
-        return  databinding.getRoot();
-    }
-}
- */

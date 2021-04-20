@@ -42,7 +42,6 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         initLoginData();
     }
 

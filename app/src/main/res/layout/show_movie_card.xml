@@ -8,13 +8,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_margin="10dp">
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="100dp"
-            android:layout_height="124dp"
+            android:layout_height="190dp"
             android:layout_margin="20dp"
 
             app:layout_constraintBottom_toTopOf="@id/guideline"
@@ -22,7 +22,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.12" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

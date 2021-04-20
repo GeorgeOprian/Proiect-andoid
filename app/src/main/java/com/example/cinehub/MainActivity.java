@@ -55,10 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         drawer = findViewById((R.id.drawer_layout));
 
@@ -70,9 +68,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_draw_open, R.string.navigation_draw_close);
         drawer.addDrawerListener(toggle); //for screens readers
         toggle.syncState();
-
-        SearchMovieFragment s = new SearchMovieFragment();
-
 
         if (savedInstanceState == null) { //poate fi null daca intram prima data in activitate sau daca dam back, pe rotate nu o sa fie null si nu o sa incarce fragmentul
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RunningInTheatersFragment()).commit(); //il deschide prima data cand se deschide aplicatia
