@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/my_nav"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
     app:startDestination="@id/runningInTheatersFragment">
-
     <fragment
         android:id="@+id/runningInTheatersFragment"
         android:name="com.example.cinehub.NavigationFragments.RunningInTheatersFragment"
-        android:label="RunningInTheatersFragment" />
+        android:label="Running In Theaters Fragment"
+        tools:layout="@layout/fragment_running_in_theaters">
+        <action
+            android:id="@+id/action_runningInTheatersFragment_to_bookingsFragment"
+            app:destination="@id/bookingsFragment" />
+        <action
+            android:id="@+id/action_runningInTheatersFragment_to_searchMovieFragment"
+            app:destination="@id/searchMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchMovieFragment"
+        android:name="com.example.cinehub.NavigationFragments.SearchMovieFragment"
+        android:label="Search Movie"
+        tools:layout="@layout/fragment_search_movie">
+        <action
+            android:id="@+id/action_searchMovieFragment_to_runningInTheatersFragment"
+            app:destination="@id/runningInTheatersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookingsFragment"
+        android:name="com.example.cinehub.NavigationFragments.BookingsFragment"
+        android:label="Bookings Fragment"
+        tools:layout="@layout/fragment_bookings">
+        <action
+            android:id="@+id/action_bookingsFragment_to_runningInTheatersFragment"
+            app:destination="@id/runningInTheatersFragment" />
+    </fragment>
 </navigation>

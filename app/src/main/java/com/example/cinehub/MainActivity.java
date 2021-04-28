@@ -3,7 +3,6 @@ package com.example.cinehub;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,13 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 
-import com.example.cinehub.NavigationFragments.BookingsFragment;
-import com.example.cinehub.NavigationFragments.RunningInTheatersFragment;
-import com.example.cinehub.NavigationFragments.SearchMovieFragment;
-import com.example.cinehub.NavigationFragments.WhatchedMoviesFragment;
-import com.example.cinehub.SearchMovieAction.SearchResultsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -36,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     private DrawerLayout drawer;
+    private NavigationView navigationView;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private SharedPreferences sharedPreferences;
@@ -55,27 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawer = findViewById((R.id.drawer_layout));
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        initNavigationComponent();
         addUserInfoToMenuHeader(user, navigationView);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_draw_open, R.string.navigation_draw_close);
-        drawer.addDrawerListener(toggle); //for screens readers
-        toggle.syncState();
-
-        if (savedInstanceState == null) { //poate fi null daca intram prima data in activitate sau daca dam back, pe rotate nu o sa fie null si nu o sa incarce fragmentul
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RunningInTheatersFragment()).commit(); //il deschide prima data cand se deschide aplicatia
-            navigationView.setCheckedItem(R.id.nav_running_in_theaters); //checks message in navigation bar
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchMovieFragment()).commit(); //il deschide prima data cand se deschide aplicatia
-//            navigationView.setCheckedItem(R.id.nav_search_movie); //checks message in navigation bar
-
-        }
     }
 
     private void initLoginData (){
@@ -96,6 +75,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         email.setText(user.getEmail());
     }
 
+
+    private void initNavigationComponent() {
+        drawer = findViewById((R.id.drawer_layout));
+        navigationView = findViewById(R.id.nav_view);
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_draw_open, R.string.navigation_draw_close);
+        drawer.addDrawerListener(toggle); //for screens readers
+        toggle.syncState();
+
+        NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -111,22 +108,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) { //navigare intre fragmente
             case R.id.nav_running_in_theaters:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RunningInTheatersFragment()).commit();
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.runningInTheatersFragment);
                 break;
             case R.id.nav_bookings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BookingsFragment()).commit();
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.bookingsFragment);
                 break;
-            case R.id.nav_watched_movies:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhatchedMoviesFragment()).commit();
-                break;
+
             case R.id.nav_search_movie:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchMovieFragment()).commit();
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.searchMovieFragment);
+
                 break;
             case R.id.nav_log_out:
-                //face log out
-                //sterge din shared pref userul logat si te intoarce la activitatea de login, punand null pe obiectul salvat in shared pref
-//                mAuth.signOut();
-//                goToSignInActivity();
                 signOut();
                 break;
 

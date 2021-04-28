@@ -28,10 +28,13 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-            <FrameLayout
-                android:id="@+id/fragment_container"
+            <fragment
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="678dp"
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                app:defaultNavHost = "true"
+                app:navGraph = "@navigation/my_nav"/>
 
         </LinearLayout>
 
