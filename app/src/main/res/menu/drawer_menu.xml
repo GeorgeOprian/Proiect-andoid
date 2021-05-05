@@ -14,9 +14,9 @@
             android:title="@string/bookings" />
 
         <item
-            android:id="@+id/nav_search_movie"
+            android:id="@+id/nav_manage_movies"
             android:icon="@drawable/ic_search_movie"
-            android:title="@string/search_movie"/>
+            android:title="@string/manage_movies"/>
 
     </group>
     <item android:title="@string/actions">

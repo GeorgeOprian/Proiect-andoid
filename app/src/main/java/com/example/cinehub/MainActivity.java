@@ -3,6 +3,7 @@ package com.example.cinehub;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +28,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         initNavigationComponent();
-        addUserInfoToMenuHeader(user, navigationView);
+        decideEditPermisions();
+        addUserInfoToMenuHeader(user);
     }
 
     private void initLoginData (){
@@ -64,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         loggedInState = sharedPreferences.getBoolean(SignInActivity.LOGIN_STATE, false);
     }
 
-    private void addUserInfoToMenuHeader (FirebaseUser user, NavigationView navigationView) {
+    private void addUserInfoToMenuHeader (FirebaseUser user) {
         View headerView = navigationView.getHeaderView(0);
         ImageView profileImage = headerView.findViewById(R.id.profile_image);
         TextView accountName = headerView.findViewById(R.id.account_name);
@@ -87,10 +95,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_draw_open, R.string.navigation_draw_close);
         drawer.addDrawerListener(toggle); //for screens readers
+
         toggle.syncState();
 
         NavigationUI.setupWithNavController(navigationView, navController);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void hideManageMoviesButton() {
+
+        Menu menu = navigationView.getMenu();
+        MenuItem manageMoviesItem = menu.findItem(R.id.nav_manage_movies);
+        manageMoviesItem.setVisible(false);
+
+    }
+
+    private void decideEditPermisions() {
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("UsersAllowedToEdit");
+        Query query = reference.orderByChild("identifier");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    boolean userCanEdit = false;
+                    for (DataSnapshot snapshot1: snapshot.getChildren()) {
+                        UserAllowedToEdit userToCheck = snapshot1.getValue(UserAllowedToEdit.class);
+                        if (userToCheck.getIdentifier().equals(user.getEmail())) {
+                            userCanEdit = true;
+                            break;
+                        }
+                    }
+                    if (!userCanEdit) {
+                        hideManageMoviesButton();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -114,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.bookingsFragment);
                 break;
 
-            case R.id.nav_search_movie:
+            case R.id.nav_manage_movies:
                 Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.searchMovieFragment);
 
                 break;

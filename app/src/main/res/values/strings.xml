@@ -16,11 +16,12 @@
     <string name="watched_movies">Watched movies</string>
     <string name="running_in_theaters">Running in theaters</string>
     <string name="bookings">Bookings</string>
-    <string name="search_movie">Search Movie</string>
+    <string name="manage_movies">Manage Movies</string>
     <string name="log_out">Log out</string>
     <string name="actions">Actions</string>
     <string name="imdb">IMDB:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
