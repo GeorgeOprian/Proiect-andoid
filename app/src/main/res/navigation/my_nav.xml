@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/runningInTheatersFragment">
+    app:startDestination="@id/searchMovieFragment">
     <fragment
         android:id="@+id/runningInTheatersFragment"
         android:name="com.example.cinehub.NavigationFragments.RunningInTheatersFragment"
@@ -33,5 +33,14 @@
         <action
             android:id="@+id/action_bookingsFragment_to_runningInTheatersFragment"
             app:destination="@id/runningInTheatersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/runningDetailsFragment"
+        android:name="com.example.cinehub.NavigationFragments.RunningDetailsFragment"
+        android:label="fragment_running_details"
+        tools:layout="@layout/fragment_running_details" >
+        <action
+            android:id="@+id/action_runningDetailsFragment_to_searchMovieFragment"
+            app:destination="@id/searchMovieFragment" />
     </fragment>
 </navigation>

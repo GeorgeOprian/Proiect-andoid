@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.cinehub.API.APIBuilder;
@@ -21,6 +22,7 @@ import com.example.cinehub.SearchMovieAction.MovieResultAdapter;
 import com.example.cinehub.SearchMovieAction.OnSearchItemClickListener;
 import com.example.cinehub.SearchMovieAction.Search;
 import com.example.cinehub.SearchMovieAction.SearchResults;
+import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.FragmentSearchMovieBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -79,8 +81,6 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
                 if (response.code() == 200) {
                     searchResults = response.body();
                     adapter.submitList(searchResults.getSearch());
-
-                    //pasam la fragment
                 } else if (response.code() == 404) {
                     Toast.makeText(getContext(), "Movie not found", Toast.LENGTH_LONG).show();
                 } else {
@@ -105,6 +105,8 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
                     rootNode = FirebaseDatabase.getInstance();
                     reference = rootNode.getReference("Movies");
                     reference.child(movie.getImdbID()).setValue(movie);
+                    SharedBetweenFragments.getInstance().setMovieToAddDisplayData(movie);
+                    goToRunningDetailsFragment();
                     Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
                 } else  {
                     showNoMovieTitleEnteredMessage();
@@ -116,6 +118,9 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
                 showNoMovieTitleEnteredMessage();
             }
         });
+    }
+    private void goToRunningDetailsFragment(){
+        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runningDetailsFragment);
     }
 
     @Override

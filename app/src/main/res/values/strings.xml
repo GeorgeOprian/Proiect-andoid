@@ -22,6 +22,18 @@
     <string name="imdb">IMDB:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="manage_running_details">Manage running details for:</string>
+    <string name="add_to_database">Add to database</string>
+    <string name="select_first_day_of_running">Select first day of running:</string>
 
+    <string-array name="days_of_week">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
 
 </resources>
