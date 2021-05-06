@@ -54,6 +54,7 @@ public class RunningInTheatersFragment extends Fragment implements OnShowItemCli
                    List <MovieModel> movies = new ArrayList<>();
                    for (DataSnapshot snapshot1: snapshot.getChildren()) {
                        movies.add(snapshot1.getValue(MovieModel.class));
+
                    }
                     adapter.submitList(movies);
                 }

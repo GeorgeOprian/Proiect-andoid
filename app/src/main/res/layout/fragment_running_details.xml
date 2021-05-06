@@ -20,24 +20,10 @@
             android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.416"
+            app:layout_constraintHorizontal_bias="0.305"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.127" />
-
-        <TextView
-            android:id="@+id/running_details_movie_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="TextView"
-            android:textSize="24sp"
-
-            app:layout_constraintBottom_toTopOf="@+id/running_details_day_of_week"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manage_running_details"
-            app:layout_constraintVertical_bias="0.52" />
+            app:layout_constraintVertical_bias="0.079" />
 
         <!--        <androidx.appcompat.widget.AppCompatSpinner-->
 <!--            android:id="@+id/days_of_week_spinner"-->
@@ -52,6 +38,21 @@
 <!--            app:layout_constraintTop_toBottomOf="@+id/running_details_movie_title"-->
 <!--            app:layout_constraintVertical_bias="0.0" />-->
 
+
+        <TextView
+            android:id="@+id/running_details_movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="24sp"
+
+            app:layout_constraintBottom_toTopOf="@+id/running_details_day_of_week"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.439"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/manage_running_details"
+            app:layout_constraintVertical_bias="0.514" />
 
         <TextView
             android:id="@+id/running_details_day_of_week"
@@ -86,30 +87,32 @@
             android:id="@+id/running_details_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hour: "
+            android:text="Select running hour: "
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.115"
+            app:layout_constraintHorizontal_bias="0.207"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/running_details_day_of_week"
-            app:layout_constraintVertical_bias="0.237" />
+            app:layout_constraintVertical_bias="0.235" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="68dp"
-            android:ems="5"
-            android:hint="HH:MM"
-            android:inputType="textPersonName"
+        <Button
+            android:id="@+id/timePickerButton"
+            style="?android:spinnerStyle"
+            android:layout_width="109dp"
+            android:layout_height="48dp"
+
+            android:onClick="popTimePicker"
+            android:text="12:00"
+            android:textColor="@color/black"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.219"
-            app:layout_constraintStart_toEndOf="@+id/running_details_time"
-            app:layout_constraintTop_toBottomOf="@+id/days_of_week_spinner"
-            app:layout_constraintVertical_bias="0.016" />
+            app:layout_constraintHorizontal_bias="0.297"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.634" />
+
 
         <Button
             android:id="@+id/add_to_db_button"
@@ -118,11 +121,12 @@
             android:text="@string/add_to_database"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintHorizontal_bias="0.46"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.73"
-            />
+            app:layout_constraintVertical_bias="0.786" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

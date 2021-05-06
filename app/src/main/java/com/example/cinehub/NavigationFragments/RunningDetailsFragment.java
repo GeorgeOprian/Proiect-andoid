@@ -2,7 +2,11 @@ package com.example.cinehub.NavigationFragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -14,14 +18,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.FragmentRunningDetailsBinding;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class RunningDetailsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -31,9 +41,23 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     private Spinner spinner;
     private Button addToDbButton;
     private String spinnerValue;
-    private Button dateButton;
-    private DatePickerDialog datePickerDialog;
 
+
+    private Button dateButton;
+    private Button timeButton;
+    private DatePickerDialog datePickerDialog;
+    private LocalDate datePicked;
+    private TimePickerDialog timePickerDialog;
+    private LocalTime timePicked;
+
+    private boolean dateWasPicked = false;
+
+    private FirebaseDatabase rootNode;
+    private DatabaseReference reference;
+    private MovieModel movie = SharedBetweenFragments.getInstance().getMovieToAddDisplayData();
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,13 +65,14 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
 
 //        initSpinner();
         initDatePickerButton();
-        Toast.makeText(getContext(), "data selectata " + dateButton.getText(), Toast.LENGTH_LONG).show();
+        initTimePickerButton();
+
 
         MovieModel movie = SharedBetweenFragments.getInstance().getMovieToAddDisplayData();
         databinding.runningDetailsMovieTitle.setText(movie.getTitle());
 
         addToDbButton = databinding.addToDbButton;
-        initButtonClickAction();
+        initAddToDbButton();
 
 //        Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
 
@@ -59,6 +84,13 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         dateButton = databinding.datePickerButton;
         dateButton.setText(getTodaysDate());
         initDateButtonClickAction();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void initTimePickerButton() {
+        initTimePicker();
+        timeButton = databinding.timePickerButton;
+        initTimeButtonClickAction();
     }
 
 
@@ -76,11 +108,33 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
         {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day)
             {
                 month = month + 1;
+                String monthString = "";
+                if (month < 10) {
+                    monthString = "0" + month;
+                } else {
+                    monthString = "" + month;
+                }
+
+                String dayString = "";
+                if (day < 10) {
+                    dayString = "0" + day;
+                } else {
+                    dayString = "" + day;
+                }
+
+
+                String dateAsString = year + "-" + monthString + "-" + dayString;
+
+                datePicked = LocalDate.parse(dateAsString);
+                dateWasPicked = true;
+
                 String date = makeDateString(day, month, year);
+                Toast.makeText(getContext(), "data selectata " + datePicked, Toast.LENGTH_LONG).show();
                 dateButton.setText(date);
             }
         };
@@ -93,13 +147,13 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         datePickerDialog = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
-        //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+
 
     }
 
     private String makeDateString(int day, int month, int year)
     {
-        return getMonthFormat(month) + " " + day + " " + year;
+        return  day +" " + getMonthFormat(month)+ " " + year;
     }
 
     private String getMonthFormat(int month)
@@ -133,10 +187,48 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         return "JAN";
     }
 
-    public void openDatePicker(View view)
+    public void openDatePicker()
     {
         datePickerDialog.show();
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void initTimePicker() {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+                String hourString = "";
+                if (selectedHour < 10) {
+                    hourString = "0" + selectedHour;
+                } else {
+                    hourString = "" + selectedHour;
+                }
+
+                String minuteString = "";
+                if (selectedMinute < 10) {
+                    minuteString = "0" + selectedMinute;
+                } else {
+                    minuteString = "" + selectedMinute;
+                }
+
+                timePicked = LocalTime.parse(hourString + ":" + minuteString);
+                timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute));
+                Toast.makeText(getContext(), "ora selectata " + timePicked, Toast.LENGTH_LONG).show();
+            }
+        };
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+        timePicked = LocalTime.parse("12:00");
+        initTimePickerDialog(onTimeSetListener, style);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void initTimePickerDialog(TimePickerDialog.OnTimeSetListener onTimeSetListener, int style) {
+        timePickerDialog = new TimePickerDialog(getContext(), style, onTimeSetListener, timePicked.getHour(), timePicked.getMinute(), true);
+    }
+
+    public void openTimePiker () {
+        timePickerDialog.show();
+    }
+
 
 //    private void initSpinner(){
 //        spinner = databinding.daysOfWeekSpinner;
@@ -150,16 +242,32 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDatePicker(v);
+                openDatePicker();
             }
         });
     }
 
-    private void initButtonClickAction () {
+    private void initTimeButtonClickAction () {
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTimePiker();
+            }
+        });
+    }
+
+
+    private void initAddToDbButton() {
         addToDbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rootNode = FirebaseDatabase.getInstance();
+                reference = rootNode.getReference("Movies");
+                reference.child(movie.getImdbID()).setValue(movie);
 
+                //o verificare ca filmul nu e in db
+
+                Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
             }
         });
     }

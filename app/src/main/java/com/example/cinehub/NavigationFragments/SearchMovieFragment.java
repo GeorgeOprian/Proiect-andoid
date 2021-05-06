@@ -41,8 +41,8 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
     private SearchResults searchResults;
     private MovieModel movie;
 
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    private FirebaseDatabase rootNode;
+    private DatabaseReference reference;
 
     @Nullable
     @Override
@@ -79,10 +79,12 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
             @Override
             public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
                 if (response.code() == 200) {
-                    searchResults = response.body();
-                    adapter.submitList(searchResults.getSearch());
-                } else if (response.code() == 404) {
-                    Toast.makeText(getContext(), "Movie not found", Toast.LENGTH_LONG).show();
+                    if (!response.body().getResponse().equals("False")) {
+                        searchResults = response.body();
+                        adapter.submitList(searchResults.getSearch());
+                    } else {
+                        Toast.makeText(getContext(), "Movie not found", Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     showNoMovieTitleEnteredMessage();
                 }
@@ -102,12 +104,12 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
             public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
                 if (response.code() == 200) {
                     movie = response.body();
-                    rootNode = FirebaseDatabase.getInstance();
-                    reference = rootNode.getReference("Movies");
-                    reference.child(movie.getImdbID()).setValue(movie);
+//                    rootNode = FirebaseDatabase.getInstance();
+//                    reference = rootNode.getReference("Movies");
+//                    reference.child(movie.getImdbID()).setValue(movie);
                     SharedBetweenFragments.getInstance().setMovieToAddDisplayData(movie);
                     goToRunningDetailsFragment();
-                    Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
                 } else  {
                     showNoMovieTitleEnteredMessage();
                 }
