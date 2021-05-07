@@ -36,7 +36,7 @@ import java.util.Locale;
 
 public class RunningDetailsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private FragmentRunningDetailsBinding databinding;
+    private FragmentRunningDetailsBinding dataBinding;
     private ArrayAdapter<CharSequence> adapter;
     private Spinner spinner;
     private Button addToDbButton;
@@ -61,7 +61,7 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_running_details, container, false);
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_running_details, container, false);
 
 //        initSpinner();
         initDatePickerButton();
@@ -69,19 +69,19 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
 
 
         MovieModel movie = SharedBetweenFragments.getInstance().getMovieToAddDisplayData();
-        databinding.runningDetailsMovieTitle.setText(movie.getTitle());
+        dataBinding.runningDetailsMovieTitle.setText(movie.getTitle());
 
-        addToDbButton = databinding.addToDbButton;
+        addToDbButton = dataBinding.addToDbButton;
         initAddToDbButton();
 
 //        Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
 
-        return databinding.getRoot();
+        return dataBinding.getRoot();
     }
 
     private void initDatePickerButton() {
         initDatePicker();
-        dateButton = databinding.datePickerButton;
+        dateButton = dataBinding.datePickerButton;
         dateButton.setText(getTodaysDate());
         initDateButtonClickAction();
     }
@@ -89,7 +89,7 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void initTimePickerButton() {
         initTimePicker();
-        timeButton = databinding.timePickerButton;
+        timeButton = dataBinding.timePickerButton;
         initTimeButtonClickAction();
     }
 

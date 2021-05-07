@@ -33,7 +33,7 @@ import retrofit2.Response;
 
 public class SearchMovieFragment extends Fragment implements OnSearchItemClickListener {
 
-    private FragmentSearchMovieBinding databinding;
+    private FragmentSearchMovieBinding dataBinding;
     private Button searchButton;
     private EditText searchInput;
     private MovieResultAdapter adapter;
@@ -47,10 +47,10 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_movie, container, false);
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_movie, container, false);
 
-        searchInput = databinding.searchMovieInput;
-        searchButton = databinding.searchMovieButton;
+        searchInput = dataBinding.searchMovieInput;
+        searchButton = dataBinding.searchMovieButton;
         initAdapter();
 
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
                 }
             }
         });
-        return  databinding.getRoot();
+        return dataBinding.getRoot();
     }
 
     @Override
@@ -141,7 +141,7 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
 
     private void initAdapter(){
         adapter = new MovieResultAdapter(this);
-        databinding.container.setLayoutManager(new GridLayoutManager(getContext(), 1));
-        databinding.container.setAdapter(adapter);
+        dataBinding.container.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        dataBinding.container.setAdapter(adapter);
     }
 }

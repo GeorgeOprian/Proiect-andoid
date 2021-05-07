@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.cinehub.Movie.MovieModel;
@@ -17,6 +18,7 @@ import com.example.cinehub.R;
 import com.example.cinehub.SearchMovieAction.MovieResultAdapter;
 import com.example.cinehub.SearchMovieAction.OnSearchItemClickListener;
 import com.example.cinehub.SearchMovieAction.Search;
+import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.FragmentRunningInTheatersBinding;
 import com.example.cinehub.displayMovies.OnShowItemClickListener;
 import com.example.cinehub.displayMovies.ShowMoviesAdapter;
@@ -76,6 +78,8 @@ public class RunningInTheatersFragment extends Fragment implements OnShowItemCli
 
     @Override
     public void onItemClick(MovieModel movie) {
+        SharedBetweenFragments.getInstance().setMovieToPassForDetailsDisplay(movie);
+        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.movieDetailsFragment);
         Toast.makeText(getContext(), movie.getTitle(), Toast.LENGTH_LONG).show();
     }
 }

@@ -15,12 +15,12 @@ import com.example.cinehub.databinding.FragmentBookingsBinding;
 
 public class BookingsFragment extends Fragment {
 
-    private FragmentBookingsBinding databinding;
+    private FragmentBookingsBinding dataBinding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookings, container, false);
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookings, container, false);
 
-        return  databinding.getRoot();
+        return  dataBinding.getRoot();
     }
 }

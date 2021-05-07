@@ -25,6 +25,7 @@
     <string name="manage_running_details">Manage running details for:</string>
     <string name="add_to_database">Add to database</string>
     <string name="select_first_day_of_running">Select first day of running:</string>
+    <string name="movie_title_to_be_deleted">Movie title to be deleted</string>
 
     <string-array name="days_of_week">
         <item>Sunday</item>

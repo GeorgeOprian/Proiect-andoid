@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_manage_movies:
-                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.searchMovieFragment);
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.manageMoviesFragment);
 
                 break;
             case R.id.nav_log_out:
