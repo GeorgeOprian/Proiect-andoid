@@ -1,13 +1,17 @@
 package com.example.cinehub;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,11 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 
+import com.example.cinehub.connectivitymanager.NetworkChangeReceiver;
+import com.example.cinehub.connectivitymanager.NetworkListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -36,7 +43,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NetworkListener {
 
 
     private DrawerLayout drawer;
@@ -46,6 +53,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SharedPreferences sharedPreferences;
     private FirebaseUser user;
     private boolean loggedInState;
+
+    private NetworkChangeReceiver receiver;
+    private IntentFilter filter;
+    private TextView connectivityTextView;
+    private boolean wasOffline;
 
 
     @Override
@@ -63,6 +75,72 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initNavigationComponent();
         decideEditPermisions();
         addUserInfoToMenuHeader(user);
+
+        connectivityTextView = findViewById(R.id.connectivity_text_view);
+        initNetworkManager();
+        registerReceiver(receiver, filter);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        unregisterReceiver(receiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initNetworkManager();
+        registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        unregisterReceiver(receiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void networkChange() {
+        if (receiver.isOnline(this)){
+            connectivityTextView.setVisibility(View.GONE);
+            if (wasOffline) {
+                Toast.makeText(this, "Back online", Toast.LENGTH_LONG).show();
+                Log.v("Br", "back online");
+                wasOffline = false;
+            }
+        } else {
+            wasOffline = true;
+            connectivityTextView.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+
+    private void initNetworkManager(){
+        receiver = new NetworkChangeReceiver();
+        receiver.setupListener(this);
+        filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        wasOffline = false;
     }
 
     private void initLoginData (){

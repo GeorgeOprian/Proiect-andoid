@@ -28,6 +28,17 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+            <TextView
+                android:id="@+id/connectivity_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="30dp"
+                android:background="#E83434"
+                android:gravity="center"
+                android:text="No internet connection"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
             <fragment
                 android:id="@+id/nav_host_fragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"
