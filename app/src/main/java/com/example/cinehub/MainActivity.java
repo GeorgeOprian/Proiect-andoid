@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        unregisterReceiver(receiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
@@ -100,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStop() {
         super.onStop();
-//        unregisterReceiver(receiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
@@ -114,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onPause() {
         super.onPause();
-//
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
