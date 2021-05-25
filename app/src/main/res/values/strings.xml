@@ -26,6 +26,8 @@
     <string name="add_to_database">Add to database</string>
     <string name="select_first_day_of_running">Select first day of running:</string>
     <string name="movie_title_to_be_deleted">Movie title to be deleted</string>
+    <string name="book_tickets">Book tickets</string>
+    <string name="rotten_tomatoes">Rotten Tomatoes</string>
 
     <string-array name="days_of_week">
         <item>Sunday</item>

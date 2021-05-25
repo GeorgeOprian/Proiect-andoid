@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.cinehub.API.ServerAPIBuilder;
 import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
@@ -32,6 +33,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class RunningDetailsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -261,13 +266,35 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         addToDbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("Movies");
-                reference.child(movie.getImdbID()).setValue(movie);
+
+                sendMovieToDB();
+
+//                rootNode = FirebaseDatabase.getInstance();
+//                reference = rootNode.getReference("Movies");
+//                reference.child(movie.getImdbID()).setValue(movie);
 
                 //o verificare ca filmul nu e in db
 
-                Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void sendMovieToDB() {
+        Call<MovieModel>call = ServerAPIBuilder.getInstance().addMovie(movie);
+        call.enqueue(new Callback<MovieModel>() {
+            @Override
+            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                MovieModel movieModel = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<MovieModel> call, Throwable t) {
+
             }
         });
     }

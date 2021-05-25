@@ -1,11 +1,16 @@
 package com.example.cinehub.Movie;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class Ratings {
 
-    @com.squareup.moshi.Json(name = "Source")
+public class Rating {
+
+    @SerializedName("Source")
+    @Expose
     private String source;
-    @com.squareup.moshi.Json(name = "Value")
+    @SerializedName("Value")
+    @Expose
     private String value;
 
     public String getSource() {
@@ -37,10 +42,10 @@ public class Ratings {
         if (other == this) {
             return true;
         }
-        if ((other instanceof Ratings) == false) {
+        if ((other instanceof Rating) == false) {
             return false;
         }
-        Ratings rhs = ((Ratings) other);
+        Rating rhs = ((Rating) other);
         return (((this.value == rhs.value)||((this.value!= null)&&this.value.equals(rhs.value)))&&((this.source == rhs.source)||((this.source!= null)&&this.source.equals(rhs.source))));
     }
 

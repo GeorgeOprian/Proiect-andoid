@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.example.cinehub.API.APIBuilder;
+import com.example.cinehub.API.OMDBAPIBuilder;
 import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 import com.example.cinehub.SearchMovieAction.MovieResultAdapter;
@@ -74,7 +74,7 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
     }
 
     private void searchMovieByTitle(String title) {
-        Call<SearchResults> call = APIBuilder.getInstance().searchMoviesByTitle(APIBuilder.API_KEY, title);
+        Call<SearchResults> call = OMDBAPIBuilder.getInstance().searchMoviesByTitle(OMDBAPIBuilder.API_KEY, title);
         call.enqueue(new Callback<SearchResults>() {
             @Override
             public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
@@ -98,7 +98,7 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
     }
 
     private void loadMovieByIDMBId(String id) {
-        Call<MovieModel> call = APIBuilder.getInstance().getMovieByIMDBId(APIBuilder.API_KEY, id);
+        Call<MovieModel> call = OMDBAPIBuilder.getInstance().getMovieByIMDBId(OMDBAPIBuilder.API_KEY, id);
         call.enqueue(new Callback<MovieModel>() {
             @Override
             public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {

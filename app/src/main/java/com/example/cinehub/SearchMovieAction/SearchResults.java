@@ -1,14 +1,20 @@
 package com.example.cinehub.SearchMovieAction;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class SearchResults {
 
-    @com.squareup.moshi.Json(name = "Search")
+    @SerializedName("Search")
+    @Expose
     private List<Search> search = null;
-    @com.squareup.moshi.Json(name = "totalResults")
+    @SerializedName("totalResults")
+    @Expose
     private String totalResults;
-    @com.squareup.moshi.Json(name = "Response")
+    @SerializedName("Response")
+    @Expose
     private String response;
 
     public List<Search> getSearch() {

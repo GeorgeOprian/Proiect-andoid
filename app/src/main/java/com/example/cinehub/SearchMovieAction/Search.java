@@ -3,17 +3,25 @@ package com.example.cinehub.SearchMovieAction;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Search implements Parcelable {
 
-    @com.squareup.moshi.Json(name = "Title")
+    @SerializedName("Title")
+    @Expose
     private String title;
-    @com.squareup.moshi.Json(name = "Year")
+    @SerializedName("Year")
+    @Expose
     private String year;
-    @com.squareup.moshi.Json(name = "imdbID")
+    @SerializedName("imdbID")
+    @Expose
     private String imdbID;
-    @com.squareup.moshi.Json(name = "Type")
+    @SerializedName("Type")
+    @Expose
     private String type;
-    @com.squareup.moshi.Json(name = "Poster")
+    @SerializedName("Poster")
+    @Expose
     private String poster;
 
     protected Search(Parcel in) {

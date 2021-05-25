@@ -3,15 +3,15 @@ package com.example.cinehub.API;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.moshi.MoshiConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class APIBuilder {
+public class ServerAPIBuilder {
 
-    private static APIService apiBuilder;
-    private final static String BASE_URL = "http://www.omdbapi.com";
+    private static ServerApiService apiBuilder;
+    private final static String BASE_URL = "http://192.168.0.116:8081";
     public final static String API_KEY = "9dee1adf";
 
-    public static APIService getInstance(){
+    public static ServerApiService getInstance(){
         if(apiBuilder == null){
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -20,10 +20,12 @@ public class APIBuilder {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client)
-                    .addConverterFactory(MoshiConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            apiBuilder = retrofit.create(APIService.class);
+            apiBuilder = retrofit.create(ServerApiService.class);
         }
         return apiBuilder;
     }
+
+
 }
