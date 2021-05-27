@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.cinehub.API.ServerAPIBuilder;
-import com.example.cinehub.Movie.MovieModel;
+import com.example.cinehub.Movie.ResponseGetMovies;
 import com.example.cinehub.R;
 import com.example.cinehub.databinding.FragmentBookingsBinding;
 
@@ -27,11 +27,11 @@ public class BookingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookings, container, false);
-        Call<MovieModel> call = ServerAPIBuilder.getInstance().getMovies(); //just for tests
+        Call<ResponseGetMovies> call = ServerAPIBuilder.getInstance().getMovies(); //just for tests
 
-        call.enqueue(new Callback<MovieModel>() {
+        call.enqueue(new Callback<ResponseGetMovies>() {
             @Override
-            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
+            public void onResponse(Call<ResponseGetMovies> call, Response<ResponseGetMovies> response) {
                 if (response.code() == 200) {
                     Log.v("ServerReqSucceded", response.body().toString());
                 } else if (response.code() == 404){
@@ -42,7 +42,7 @@ public class BookingsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<MovieModel> call, Throwable t) {
+            public void onFailure(Call<ResponseGetMovies> call, Throwable t) {
                 Log.v("ServerReqFailed", t.getMessage());
             }
         });

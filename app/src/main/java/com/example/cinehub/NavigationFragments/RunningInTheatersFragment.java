@@ -1,6 +1,7 @@
 package com.example.cinehub.NavigationFragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.example.cinehub.API.ServerAPIBuilder;
+import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.Movie.MovieModel;
+import com.example.cinehub.Movie.ResponseGetMovies;
 import com.example.cinehub.R;
 import com.example.cinehub.SearchMovieAction.MovieResultAdapter;
 import com.example.cinehub.SearchMovieAction.OnSearchItemClickListener;
@@ -32,12 +36,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class RunningInTheatersFragment extends Fragment implements OnShowItemClickListener {
 
     private FragmentRunningInTheatersBinding dataBinding;
-    private FirebaseDatabase rootNode;
-    private DatabaseReference reference;
 
     private ShowMoviesAdapter adapter;
     @Nullable
@@ -46,27 +52,7 @@ public class RunningInTheatersFragment extends Fragment implements OnShowItemCli
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_running_in_theaters, container, false);
         initAdapter();
 
-        rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("Movies");
-        Query query = reference.orderByChild("title");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                   List <MovieModel> movies = new ArrayList<>();
-                   for (DataSnapshot snapshot1: snapshot.getChildren()) {
-                       movies.add(snapshot1.getValue(MovieModel.class));
-
-                   }
-                    adapter.submitList(movies);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        getMoviesFromDataBase();
         return  dataBinding.getRoot();
     }
 
@@ -76,8 +62,31 @@ public class RunningInTheatersFragment extends Fragment implements OnShowItemCli
         dataBinding.container.setAdapter(adapter);
     }
 
+    private void getMoviesFromDataBase() {
+        Call<ResponseGetMovies> call = ServerAPIBuilder.getInstance().getMovies(); //just for tests
+
+        call.enqueue(new Callback<ResponseGetMovies>() {
+            @Override
+            public void onResponse(Call<ResponseGetMovies> call, Response<ResponseGetMovies> response) {
+                if (response.code() == 200) {
+//                    Log.v("ServerReqSucceded", response.body().toString());
+                    adapter.submitList(response.body().getMoviesList());
+                } else if (response.code() == 404){
+                    Log.v("ServerReqFailed", "No data found");
+                } else {
+                    Log.v("ServerReqFailed", "There where some problems with the query");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseGetMovies> call, Throwable t) {
+                Log.v("ServerReqFailed", t.getMessage());
+            }
+        });
+    }
+
     @Override
-    public void onItemClick(MovieModel movie) {
+    public void onItemClick(MovieDTO movie) {
         SharedBetweenFragments.getInstance().setMovieToPassForDetailsDisplay(movie);
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.movieDetailsFragment);
         Toast.makeText(getContext(), movie.getTitle(), Toast.LENGTH_LONG).show();

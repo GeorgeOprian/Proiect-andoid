@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
@@ -23,7 +24,7 @@ public class MovieDetailsFragment extends Fragment {
 
     private FragmentMovieDetailsBinding dataBinding;
     private Button bookTicketsButton;
-    private MovieModel movie;
+    private MovieDTO movie;
     private TextView movieTitle;
     private TextView released_date;
     private TextView runtime;
@@ -44,7 +45,7 @@ public class MovieDetailsFragment extends Fragment {
 
         movieTitle.setText(movie.getTitle());
         released_date.setText(movie.getReleased());
-        runtime.setText(movie.getRuntime());
+        runtime.setText(movie.getRunningTime());
         plot.setText(movie.getPlot());
         imdb_rating.setText(movie.getRatings().get(0).getValue());
         actors.setText(movie.getActors());

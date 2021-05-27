@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manage_running_details"
-            android:textSize="26sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.305"
@@ -25,19 +25,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.079" />
 
-        <!--        <androidx.appcompat.widget.AppCompatSpinner-->
-<!--            android:id="@+id/days_of_week_spinner"-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="40dp"-->
 
-<!--            android:layout_marginTop="24dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.778"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/running_details_movie_title"-->
-<!--            app:layout_constraintVertical_bias="0.0" />-->
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/hall_number"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
 
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.652"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.746" />
 
         <TextView
             android:id="@+id/running_details_movie_title"
@@ -60,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:text="@string/select_first_day_of_running"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -78,7 +77,7 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.248"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.42" />
@@ -88,13 +87,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select running hour: "
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.207"
+            app:layout_constraintHorizontal_bias="0.161"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/running_details_day_of_week"
-            app:layout_constraintVertical_bias="0.235" />
+            app:layout_constraintVertical_bias="0.296" />
+
 
         <Button
             android:id="@+id/timePickerButton"
@@ -108,11 +108,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.297"
+            app:layout_constraintHorizontal_bias="0.817"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.634" />
-
+            app:layout_constraintVertical_bias="0.55" />
 
         <Button
             android:id="@+id/add_to_db_button"
@@ -121,12 +120,23 @@
             android:text="@string/add_to_database"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.46"
+            app:layout_constraintHorizontal_bias="0.449"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.786" />
+            app:layout_constraintVertical_bias="0.872" />
 
-
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hall number:"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.129"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.741" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.MovieViewHolder> {
 
-    private List<MovieModel> localDataSet;
+    private List<MovieDTO> localDataSet;
     public static OnShowItemClickListener itemClickListener;
 
 
@@ -26,7 +27,7 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
         itemClickListener = listener;
     }
 
-    public void submitList(List<MovieModel> dataSet) {
+    public void submitList(List<MovieDTO> dataSet) {
         localDataSet = dataSet;
         notifyDataSetChanged();
     }
@@ -63,9 +64,9 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
             this.binding = binding;
         }
 
-        public void bind(MovieModel item){
+        public void bind(MovieDTO item){
             binding.title.setText(item.getTitle());
-            binding.year.setText(item.getYear());
+            binding.year.setText(item.getReleased()); //FIXME
             binding.imdbRating.setText(item.getImdbRating());
             Picasso.get().load(item.getPoster()).into(binding.image);
 

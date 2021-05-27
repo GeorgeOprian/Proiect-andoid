@@ -22,6 +22,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.cinehub.API.ServerAPIBuilder;
+import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
@@ -45,15 +46,15 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     private ArrayAdapter<CharSequence> adapter;
     private Spinner spinner;
     private Button addToDbButton;
-    private String spinnerValue;
+
 
 
     private Button dateButton;
     private Button timeButton;
     private DatePickerDialog datePickerDialog;
-    private LocalDate datePicked;
+
     private TimePickerDialog timePickerDialog;
-    private LocalTime timePicked;
+
 
     private boolean dateWasPicked = false;
 
@@ -61,6 +62,10 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     private DatabaseReference reference;
     private MovieModel movie = SharedBetweenFragments.getInstance().getMovieToAddDisplayData();
 
+    private MovieDTO movieDTO;
+    private LocalDate datePicked;
+    private LocalTime timePicked;
+    private String hallPicked;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -68,7 +73,7 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
                              Bundle savedInstanceState) {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_running_details, container, false);
 
-//        initSpinner();
+        initSpinner();
         initDatePickerButton();
         initTimePickerButton();
 
@@ -84,6 +89,7 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         return dataBinding.getRoot();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void initDatePickerButton() {
         initDatePicker();
         dateButton = dataBinding.datePickerButton;
@@ -109,6 +115,7 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         return makeDateString(day, month, year);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void initDatePicker()
     {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
@@ -152,7 +159,7 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         datePickerDialog = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
-
+        datePicked = LocalDate.now();
 
     }
 
@@ -235,13 +242,13 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     }
 
 
-//    private void initSpinner(){
-//        spinner = databinding.daysOfWeekSpinner;
-//        adapter = ArrayAdapter.createFromResource(getContext(), R.array.days_of_week, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(this);
-//    }
+    private void initSpinner(){
+        spinner = dataBinding.hallNumber;
+        adapter = ArrayAdapter.createFromResource(getContext(), R.array.halls_numbers, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+    }
 
     private void initDateButtonClickAction () {
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -266,7 +273,6 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         addToDbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 sendMovieToDB();
 
 //                rootNode = FirebaseDatabase.getInstance();
@@ -281,20 +287,22 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     }
 
     private void sendMovieToDB() {
-        Call<MovieModel>call = ServerAPIBuilder.getInstance().addMovie(movie);
-        call.enqueue(new Callback<MovieModel>() {
+        movieDTO = createMovieDTO(movie);
+        Call<MovieDTO>call = ServerAPIBuilder.getInstance().addMovie(movieDTO);
+        call.enqueue(new Callback<MovieDTO>() {
             @Override
-            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
+            public void onResponse(Call<MovieDTO> call, Response<MovieDTO> response) {
                 if (!response.isSuccessful()) {
+
                     Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                MovieModel movieModel = response.body();
+                Toast.makeText(getContext(), "Movie was successfully sent to the server", Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<MovieModel> call, Throwable t) {
-
+            public void onFailure(Call<MovieDTO> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -302,13 +310,38 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        spinnerValue =  parent.getItemAtPosition(position).toString();
-        Toast.makeText(getContext(), spinnerValue, Toast.LENGTH_LONG).show();
-
+        hallPicked =  parent.getItemAtPosition(position).toString();
+//        Toast.makeText(getContext(), hallPicked, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+
+    private MovieDTO createMovieDTO(MovieModel current) {
+        MovieDTO dto = new MovieDTO();
+        dto.setImdbID(current.getImdbID());
+        dto.setTitle(current.getTitle());
+        dto.setReleased(current.getReleased());
+        dto.setDuration(current.getRuntime());
+        dto.setGenre(current.getGenre());
+        dto.setDirector(current.getDirector());
+        dto.setWriter(current.getWriter());
+        dto.setActors(current.getActors());
+        dto.setPlot(current.getPlot());
+        dto.setLanguage(current.getLanguage());
+        dto.setAwards(current.getAwards());
+        dto.setPoster(current.getPoster());
+        dto.setRatings(current.getRatings());
+        dto.setImdbRating(current.getImdbRating());
+        dto.setBoxOffice(current.getBoxOffice());
+
+        dto.setRunningDate(datePicked.toString());
+        dto.setRunningTime(timePicked.toString());
+        dto.setHallNumber(hallPicked);
+
+        return dto;
     }
 }

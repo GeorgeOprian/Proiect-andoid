@@ -1,5 +1,6 @@
 package com.example.cinehub;
 
+import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.Movie.MovieModel;
 
 public class SharedBetweenFragments {
@@ -7,7 +8,7 @@ public class SharedBetweenFragments {
     private static SharedBetweenFragments instance;
     private MovieModel movieToAddDisplayData;
 
-    private MovieModel movieToPassForDetailsDisplay;
+    private MovieDTO movieToPassForDetailsDisplay;
 
     private SharedBetweenFragments() { }
 
@@ -26,11 +27,11 @@ public class SharedBetweenFragments {
         this.movieToAddDisplayData = movieToAddDisplayData;
     }
 
-    public MovieModel getMovieToPassForDetailsDisplay() {
+    public MovieDTO getMovieToPassForDetailsDisplay() {
         return movieToPassForDetailsDisplay;
     }
 
-    public void setMovieToPassForDetailsDisplay(MovieModel movieToPassForDetailsDisplay) {
+    public void setMovieToPassForDetailsDisplay(MovieDTO movieToPassForDetailsDisplay) {
         this.movieToPassForDetailsDisplay = movieToPassForDetailsDisplay;
     }
 }
