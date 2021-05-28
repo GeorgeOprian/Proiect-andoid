@@ -28,6 +28,7 @@
             android:layout_width="221dp"
             android:layout_height="86dp"
             android:layout_marginTop="44dp"
+            android:layout_marginRight="20dp"
             android:autoSizeTextType="uniform"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,24 +73,25 @@
             android:id="@+id/imdb_rating"
             android:layout_width="62dp"
             android:layout_height="17dp"
-            android:layout_marginEnd="264dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.958"
-            app:layout_constraintStart_toEndOf="@+id/textView12"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.787" />
+            app:layout_constraintVertical_bias="0.788" />
+
 
         <TextView
             android:id="@+id/actors"
-            android:layout_width="348dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="88dp"
-            android:autoSizeTextType="uniform"
+            android:layout_width="356dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginRight="25dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.253"
+            app:layout_constraintHorizontal_bias="0.327"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/runtime" />
 
@@ -97,7 +99,9 @@
             android:id="@+id/plot"
             android:layout_width="354dp"
             android:layout_height="152dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="32dp"
+            android:layout_marginRight="25dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.28"
@@ -116,27 +120,41 @@
             app:layout_constraintVertical_bias="0.788" />
 
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="112dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/rotten_tomatoes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-        <TextView
-            android:id="@+id/rotten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/textView13"
+            android:layout_width="50dp"
+            android:layout_height="23dp"
+            android:layout_marginBottom="18dp"
+            android:text="Cast"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/actors"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.837" />
+            app:layout_constraintHorizontal_bias="0.066"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/runtime"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <!--        <TextView-->
+<!--            android:id="@+id/textView6"-->
+<!--            android:layout_width="112dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:text="@string/rotten_tomatoes"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView12" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/rotten"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/textView6"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.837" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

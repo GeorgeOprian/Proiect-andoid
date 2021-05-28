@@ -293,7 +293,6 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onResponse(Call<MovieDTO> call, Response<MovieDTO> response) {
                 if (!response.isSuccessful()) {
-
                     Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
                     return;
                 }

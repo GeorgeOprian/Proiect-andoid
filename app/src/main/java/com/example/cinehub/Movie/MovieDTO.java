@@ -51,6 +51,9 @@ public class MovieDTO {
     @SerializedName("BoxOffice")
     @Expose
     private String boxOffice;
+    @SerializedName("RunningId")
+    @Expose
+    private String runningId;
     @SerializedName("RunningDate")
     @Expose
     private String runningDate;
@@ -60,6 +63,10 @@ public class MovieDTO {
     @SerializedName("HallNumber")
     @Expose
     private String hallNumber;
+    @SerializedName("OccupiedSeats")
+    @Expose
+    private List<Integer> occupiedSeats;
+
 
     public String getImdbID() {
         return imdbID;
@@ -181,6 +188,14 @@ public class MovieDTO {
         this.boxOffice = boxOffice;
     }
 
+    public String getRunningId() {
+        return runningId;
+    }
+
+    public void setRunningId(String runningId) {
+        this.runningId = runningId;
+    }
+
     public String getRunningDate() {
         return runningDate;
     }
@@ -203,5 +218,24 @@ public class MovieDTO {
 
     public void setHallNumber(String hallNumber) {
         this.hallNumber = hallNumber;
+    }
+
+    public List<Integer> getOccupiedSeats() {
+        return occupiedSeats;
+    }
+
+    public void setOccupiedSeats(List<Integer> occupiedSeats) {
+        this.occupiedSeats = occupiedSeats;
+    }
+
+    public String getOccupiedSeatsString() {
+        String s = "  ";
+        for (int i = 0; i < occupiedSeats.size(); i++) {
+            s += occupiedSeats.get(i).toString();
+            if (i < occupiedSeats.size() - 1) {
+                s += ", ";
+            }
+        }
+        return s;
     }
 }

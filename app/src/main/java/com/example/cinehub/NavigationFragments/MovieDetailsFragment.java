@@ -43,15 +43,7 @@ public class MovieDetailsFragment extends Fragment {
 
         initLayoutElements();
 
-        movieTitle.setText(movie.getTitle());
-        released_date.setText(movie.getReleased());
-        runtime.setText(movie.getRunningTime());
-        plot.setText(movie.getPlot());
-        imdb_rating.setText(movie.getRatings().get(0).getValue());
-        actors.setText(movie.getActors());
-        rotten.setText(movie.getRatings().get(1).getValue());
 
-        Picasso.get().load(movie.getPoster()).into(dataBinding.image);
 
         return dataBinding.getRoot();
     }
@@ -63,10 +55,20 @@ public class MovieDetailsFragment extends Fragment {
         plot = dataBinding.plot;
         imdb_rating = dataBinding.imdbRating;
         actors = dataBinding.actors;
-        rotten = dataBinding.rotten;
+//        rotten = dataBinding.rotten;
+        movieTitle.setText(movie.getTitle());
+        released_date.setText(movie.getReleased());
+        runtime.setText(movie.getRunningTime());
+        plot.setText(movie.getPlot());
+        imdb_rating.setText(movie.getImdbRating());
+        actors.setText(movie.getActors());
+//        rotten.setText(movie.getRatings().get(1).getValue());
+        Picasso.get().load(movie.getPoster()).into(dataBinding.image);
 
         initBookingsButton();
     }
+
+
 
     private void initBookingsButton() {
         bookTicketsButton = dataBinding.bookTickets;

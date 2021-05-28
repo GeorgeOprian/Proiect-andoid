@@ -66,8 +66,9 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
 
         public void bind(MovieDTO item){
             binding.title.setText(item.getTitle());
-            binding.year.setText(item.getReleased()); //FIXME
             binding.imdbRating.setText(item.getImdbRating());
+            binding.releasedDate.setText(item.getReleased()); //FIXME
+            binding.duration.setText(item.getDuration());
             Picasso.get().load(item.getPoster()).into(binding.image);
 
             binding.getRoot().setOnClickListener(new View.OnClickListener() {

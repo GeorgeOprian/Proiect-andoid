@@ -10,6 +10,9 @@ public class SharedBetweenFragments {
 
     private MovieDTO movieToPassForDetailsDisplay;
 
+    public static final int COULD_NOT_INSERT_IN_DB = 512;
+    public static final int MAX_NUMBER_OF_SEATS_IN_HALL = 50;
+
     private SharedBetweenFragments() { }
 
     public static SharedBetweenFragments getInstance() {

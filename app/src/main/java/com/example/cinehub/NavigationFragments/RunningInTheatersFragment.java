@@ -16,25 +16,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.cinehub.API.ServerAPIBuilder;
 import com.example.cinehub.Movie.MovieDTO;
-import com.example.cinehub.Movie.MovieModel;
-import com.example.cinehub.Movie.ResponseGetMovies;
+import com.example.cinehub.Movie.GetMoviesDTO;
 import com.example.cinehub.R;
-import com.example.cinehub.SearchMovieAction.MovieResultAdapter;
-import com.example.cinehub.SearchMovieAction.OnSearchItemClickListener;
-import com.example.cinehub.SearchMovieAction.Search;
 import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.FragmentRunningInTheatersBinding;
 import com.example.cinehub.displayMovies.OnShowItemClickListener;
 import com.example.cinehub.displayMovies.ShowMoviesAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,11 +50,11 @@ public class RunningInTheatersFragment extends Fragment implements OnShowItemCli
     }
 
     private void getMoviesFromDataBase() {
-        Call<ResponseGetMovies> call = ServerAPIBuilder.getInstance().getMovies(); //just for tests
+        Call<GetMoviesDTO> call = ServerAPIBuilder.getInstance().getMovies(); //just for tests
 
-        call.enqueue(new Callback<ResponseGetMovies>() {
+        call.enqueue(new Callback<GetMoviesDTO>() {
             @Override
-            public void onResponse(Call<ResponseGetMovies> call, Response<ResponseGetMovies> response) {
+            public void onResponse(Call<GetMoviesDTO> call, Response<GetMoviesDTO> response) {
                 if (response.code() == 200) {
 //                    Log.v("ServerReqSucceded", response.body().toString());
                     adapter.submitList(response.body().getMoviesList());
@@ -79,7 +66,7 @@ public class RunningInTheatersFragment extends Fragment implements OnShowItemCli
             }
 
             @Override
-            public void onFailure(Call<ResponseGetMovies> call, Throwable t) {
+            public void onFailure(Call<GetMoviesDTO> call, Throwable t) {
                 Log.v("ServerReqFailed", t.getMessage());
             }
         });
