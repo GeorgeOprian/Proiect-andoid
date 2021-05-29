@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private SharedPreferences sharedPreferences;
-    private static FirebaseUser user;
+    private FirebaseUser user;
     private boolean loggedInState;
 
     private NetworkChangeReceiver receiver;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             goToSignInActivity();
 
         }
-
+        SharedBetweenFragments.getInstance().setUser(user);
         initNavigationComponent();
         decideEditPermisions();
         addUserInfoToMenuHeader(user);
@@ -276,9 +276,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(SignInActivity.LOGIN_STATE, SignInActivity.USER_LOGED_OUT);
         editor.apply();
-    }
-
-    public static FirebaseUser getCurrentUser() {
-        return user;
     }
 }

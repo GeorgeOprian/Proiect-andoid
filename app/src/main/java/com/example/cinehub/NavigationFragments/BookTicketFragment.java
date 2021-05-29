@@ -76,6 +76,7 @@ public class BookTicketFragment extends Fragment {
                     BookingDTO booking = createBooking();
                     if (booking != null) {
                         sendBookingToServer(booking);
+                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runningInTheatersFragment);
                     }
                  }
             }
@@ -85,7 +86,8 @@ public class BookTicketFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private BookingDTO createBooking() {
         BookingDTO bookingDTO = new BookingDTO();
-        bookingDTO.setUserId(MainActivity.getCurrentUser().getUid());
+        String userId = SharedBetweenFragments.getInstance().getUser().getUid();
+        bookingDTO.setUserId(userId);
         bookingDTO.setRunningId(movie.getRunningId());
         List<Integer> listOfSeats = createListOfSeats();
         if (listOfSeats != null) {

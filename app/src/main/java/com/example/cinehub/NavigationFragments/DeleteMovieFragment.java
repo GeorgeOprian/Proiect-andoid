@@ -43,8 +43,7 @@ public class DeleteMovieFragment extends Fragment {
                 if (movieTitle.equals("")) {
                     showNoMovieTitleEnteredMessage();
                 } else {
-                    String returnMessage = MoviesDao.getInstance().searchMovieByTitle(movieTitle);
-                    Toast.makeText(getContext(), returnMessage, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "", Toast.LENGTH_LONG).show();
                 }
             }
         });

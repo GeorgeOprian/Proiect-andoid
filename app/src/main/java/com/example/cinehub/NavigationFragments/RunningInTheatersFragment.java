@@ -13,22 +13,20 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-
 import com.example.cinehub.API.ServerAPIBuilder;
 import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.Movie.GetMoviesDTO;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.FragmentRunningInTheatersBinding;
-import com.example.cinehub.displayMovies.OnShowItemClickListener;
-import com.example.cinehub.displayMovies.ShowMoviesAdapter;
-
+import com.example.cinehub.Adapters.OnShowMovieItemClickListener;
+import com.example.cinehub.Adapters.ShowMoviesAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class RunningInTheatersFragment extends Fragment implements OnShowItemClickListener {
+public class RunningInTheatersFragment extends Fragment implements OnShowMovieItemClickListener {
 
     private FragmentRunningInTheatersBinding dataBinding;
 
@@ -56,18 +54,17 @@ public class RunningInTheatersFragment extends Fragment implements OnShowItemCli
             @Override
             public void onResponse(Call<GetMoviesDTO> call, Response<GetMoviesDTO> response) {
                 if (response.code() == 200) {
-//                    Log.v("ServerReqSucceded", response.body().toString());
                     adapter.submitList(response.body().getMoviesList());
                 } else if (response.code() == 404){
-                    Log.v("ServerReqFailed", "No data found");
+                    Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.v("ServerReqFailed", "There where some problems with the query");
+                    Toast.makeText(getContext(), "There where some problems with the query", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<GetMoviesDTO> call, Throwable t) {
-                Log.v("ServerReqFailed", t.getMessage());
+                Toast.makeText(getContext(), "Server request failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -76,6 +73,5 @@ public class RunningInTheatersFragment extends Fragment implements OnShowItemCli
     public void onItemClick(MovieDTO movie) {
         SharedBetweenFragments.getInstance().setMovieToPassForDetailsDisplay(movie);
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.movieDetailsFragment);
-        Toast.makeText(getContext(), movie.getTitle(), Toast.LENGTH_LONG).show();
     }
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,7 +147,6 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
                 dateWasPicked = true;
 
                 String date = makeDateString(day, month, year);
-                Toast.makeText(getContext(), "data selectata " + datePicked, Toast.LENGTH_LONG).show();
                 dateButton.setText(date);
             }
         };
@@ -225,7 +225,6 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
 
                 timePicked = LocalTime.parse(hourString + ":" + minuteString);
                 timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute));
-                Toast.makeText(getContext(), "ora selectata " + timePicked, Toast.LENGTH_LONG).show();
             }
         };
         int style = AlertDialog.THEME_HOLO_LIGHT;
@@ -274,14 +273,7 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
                 sendMovieToDB();
-
-//                rootNode = FirebaseDatabase.getInstance();
-//                reference = rootNode.getReference("Movies");
-//                reference.child(movie.getImdbID()).setValue(movie);
-
-                //o verificare ca filmul nu e in db
-
-//                Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.searchMovieFragment);
             }
         });
     }
@@ -293,7 +285,12 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onResponse(Call<MovieDTO> call, Response<MovieDTO> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
+                    if (response.code() == SharedBetweenFragments.INTERNAL_SERVER_ERROR) {
+                        Toast.makeText(getContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
+                    }
                     return;
                 }
                 Toast.makeText(getContext(), "Movie was successfully sent to the server", Toast.LENGTH_LONG).show();
@@ -310,7 +307,6 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         hallPicked =  parent.getItemAtPosition(position).toString();
-//        Toast.makeText(getContext(), hallPicked, Toast.LENGTH_LONG).show();
     }
 
     @Override

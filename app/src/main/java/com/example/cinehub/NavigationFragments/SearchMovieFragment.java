@@ -41,9 +41,6 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
     private SearchResults searchResults;
     private MovieModel movie;
 
-    private FirebaseDatabase rootNode;
-    private DatabaseReference reference;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -104,12 +101,8 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
             public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
                 if (response.code() == 200) {
                     movie = response.body();
-//                    rootNode = FirebaseDatabase.getInstance();
-//                    reference = rootNode.getReference("Movies");
-//                    reference.child(movie.getImdbID()).setValue(movie);
                     SharedBetweenFragments.getInstance().setMovieToAddDisplayData(movie);
                     goToRunningDetailsFragment();
-//                    Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
                 } else  {
                     showNoMovieTitleEnteredMessage();
                 }
@@ -133,10 +126,6 @@ public class SearchMovieFragment extends Fragment implements OnSearchItemClickLi
 
     private void showNoMovieTitleEnteredMessage() {
         Toast.makeText(getContext(), getString(R.string.errors_executing_query), Toast.LENGTH_LONG).show();
-    }
-
-    private void showErrorExecutingQuery() {
-        Toast.makeText(getContext(), getString(R.string.enter_movie_title), Toast.LENGTH_LONG).show();
     }
 
     private void initAdapter(){

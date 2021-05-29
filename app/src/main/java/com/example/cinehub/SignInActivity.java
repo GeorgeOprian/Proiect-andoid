@@ -32,7 +32,7 @@ public class SignInActivity extends AppCompatActivity {
     public static final boolean USER_LOGED_OUT = false;
 
     private GoogleSignInClient mGoogleSignInClient;
-    private final static int RC_SIGN_IN = 123; //poate sa fie orice numar
+    private final static int RC_SIGN_IN = 123;
 
 
     private Button signInButton;

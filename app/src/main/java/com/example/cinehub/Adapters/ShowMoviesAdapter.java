@@ -1,4 +1,4 @@
-package com.example.cinehub.displayMovies;
+package com.example.cinehub.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinehub.Movie.MovieDTO;
-import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 
 import com.example.cinehub.databinding.ShowMovieCardBinding;
@@ -20,10 +19,10 @@ import java.util.List;
 public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.MovieViewHolder> {
 
     private List<MovieDTO> localDataSet;
-    public static OnShowItemClickListener itemClickListener;
+    public static OnShowMovieItemClickListener itemClickListener;
 
 
-    public ShowMoviesAdapter(OnShowItemClickListener listener) {
+    public ShowMoviesAdapter(OnShowMovieItemClickListener listener) {
         itemClickListener = listener;
     }
 
@@ -37,7 +36,7 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
     public ShowMoviesAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ShowMoviesAdapter.MovieViewHolder(DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.show_movie_card, //de schimbat
+                R.layout.show_movie_card,
                 parent,
                 false)
         );
@@ -59,7 +58,7 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
 
         private final ShowMovieCardBinding binding;
 
-        public MovieViewHolder(ShowMovieCardBinding binding) { //de schimbat layoutul
+        public MovieViewHolder(ShowMovieCardBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
