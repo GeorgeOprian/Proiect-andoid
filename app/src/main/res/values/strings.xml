@@ -19,7 +19,6 @@
     <string name="manage_movies">Manage Movies</string>
     <string name="log_out">Log out</string>
     <string name="actions">Actions</string>
-    <string name="imdb">IMDB:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="manage_running_details">Manage running details for:</string>
@@ -28,6 +27,8 @@
     <string name="movie_title_to_be_deleted">Movie title to be deleted</string>
     <string name="rotten_tomatoes">Rotten Tomatoes</string>
     <string name="book_tickes">Book tickets</string>
+    <string name="imdb_rating">IMDB rating:</string>
+    <string name="imdb">IMDB: </string>
 
     <string-array name="halls_numbers">
         <item>1</item>
