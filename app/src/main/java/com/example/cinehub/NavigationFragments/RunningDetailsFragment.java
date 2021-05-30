@@ -293,7 +293,7 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
                     }
                     return;
                 }
-                Toast.makeText(getContext(), "Movie was successfully sent to the server", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Movie was successfully added to database", Toast.LENGTH_LONG).show();
             }
 
             @Override

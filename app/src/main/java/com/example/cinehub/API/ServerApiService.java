@@ -7,8 +7,10 @@ import com.example.cinehub.Movie.MovieDTO;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ServerApiService {
@@ -23,5 +25,8 @@ public interface ServerApiService {
 
     @GET("bookings_for_user")
     Call<GetBookingsDTO> getBookingsForUser(@Query("user_id") String userId);
+
+    @DELETE("delete_movie")
+    Call<Void> deleteMovie(@Query("movie_title") String movie_title);
 
 }

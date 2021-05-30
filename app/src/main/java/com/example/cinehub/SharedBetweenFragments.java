@@ -10,6 +10,8 @@ public class SharedBetweenFragments {
     private MovieModel movieToAddDisplayData;
     private MovieDTO movieToPassForDetailsDisplay;
     public static final int COULD_NOT_INSERT_IN_DB = 512;
+    public static final int BOOKINGS_LINKED_TO_MOVIE = 513;
+    public static final int MOVIE_NOT_FOUND = 514;
     public static final int INTERNAL_SERVER_ERROR = 500;
     public static final int MAX_NUMBER_OF_SEATS_IN_HALL = 50;
     private FirebaseUser user;
