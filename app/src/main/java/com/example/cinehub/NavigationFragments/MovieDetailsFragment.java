@@ -1,6 +1,5 @@
 package com.example.cinehub.NavigationFragments;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cinehub.Movie.MovieDTO;
-import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.FragmentMovieDetailsBinding;
@@ -27,7 +25,7 @@ public class MovieDetailsFragment extends Fragment {
     private MovieDTO movie;
     private TextView movieTitle;
     private TextView released_date;
-    private TextView runtime;
+    private TextView duration;
     private TextView plot;
     private TextView imdb_rating;
     private TextView actors;
@@ -51,22 +49,23 @@ public class MovieDetailsFragment extends Fragment {
     private void initLayoutElements() {
         movieTitle = dataBinding.movieTitle;
         released_date = dataBinding.releasedDate;
-        runtime = dataBinding.runtime;
+        duration = dataBinding.duration;
         plot = dataBinding.plot;
         imdb_rating = dataBinding.imdbRating;
         actors = dataBinding.actors;
-//        rotten = dataBinding.rotten;
+
         movieTitle.setText(movie.getTitle());
+        movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(movie.getTitle()));
         released_date.setText(movie.getReleased());
-        runtime.setText(movie.getRunningTime());
+        duration.setText(movie.getDuration());
         plot.setText(movie.getPlot());
         imdb_rating.setText(movie.getImdbRating());
         actors.setText(movie.getActors());
-//        rotten.setText(movie.getRatings().get(1).getValue());
         Picasso.get().load(movie.getPoster()).into(dataBinding.image);
 
         initBookingsButton();
     }
+
 
 
 

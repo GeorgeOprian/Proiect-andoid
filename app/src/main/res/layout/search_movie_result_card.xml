@@ -37,7 +37,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:text="Title"
             android:layout_marginStart="28dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,9 +48,9 @@
 
         <TextView
             android:id="@+id/year"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-
+            android:layout_width="134dp"
+            android:layout_height="27dp"
+            android:text="2021"
             android:layout_marginStart="28dp"
             android:width="30dp"
             app:layout_constraintBottom_toBottomOf="parent"

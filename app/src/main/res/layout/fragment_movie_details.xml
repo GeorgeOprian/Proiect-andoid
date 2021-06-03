@@ -25,50 +25,58 @@
 
         <TextView
             android:id="@+id/movie_title"
-            android:layout_width="221dp"
-            android:layout_height="86dp"
-            android:layout_marginTop="44dp"
-            android:layout_marginRight="20dp"
-            android:autoSizeTextType="uniform"
+            android:layout_width="216dp"
+            android:layout_height="67dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.272"
             app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.071" />
+
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="126dp"
             android:layout_height="163dp"
-            android:layout_marginStart="20dp"
             app:layout_constraintBottom_toTopOf="@+id/book_tickets"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.098"
+            app:layout_constraintVertical_bias="0.097"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/released_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="34dp"
             android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.057"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+            app:layout_constraintHorizontal_bias="0.0"
+
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.206" />
 
         <TextView
-            android:id="@+id/runtime"
+            android:id="@+id/duration"
             android:layout_width="59dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="16dp"
             android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/released_date" />
-
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/released_date"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/imdb_rating"
@@ -86,52 +94,59 @@
             android:id="@+id/actors"
             android:layout_width="356dp"
             android:layout_height="53dp"
+
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="108dp"
             android:layout_marginRight="25dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.327"
+            app:layout_constraintHorizontal_bias="0.363"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/runtime" />
+            app:layout_constraintTop_toBottomOf="@+id/image"
+            app:layout_constraintVertical_bias="0.238" />
 
         <TextView
             android:id="@+id/plot"
             android:layout_width="354dp"
             android:layout_height="152dp"
+            android:layout_marginTop="56dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginRight="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.421"
+            app:layout_constraintHorizontal_bias="0.35"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/actors" />
+            app:layout_constraintTop_toBottomOf="@+id/actors"
+            app:layout_constraintVertical_bias="0.065" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="81dp"
             android:layout_height="21dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="20dp"
             android:text="@string/imdb_rating"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.34" />
+            app:layout_constraintVertical_bias="0.342" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="50dp"
             android:layout_height="23dp"
-            android:layout_marginBottom="18dp"
             android:text="Cast"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/actors"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.066"
+            app:layout_constraintHorizontal_bias="0.055"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/runtime"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.396" />
 
         <TextView
             android:id="@+id/textView14"
@@ -143,33 +158,36 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/plot"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintHorizontal_bias="0.065"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/actors"
             app:layout_constraintVertical_bias="1.0" />
 
-        <!--        <TextView-->
-<!--            android:id="@+id/textView6"-->
-<!--            android:layout_width="112dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:text="@string/rotten_tomatoes"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView12" />-->
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Release date"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.524"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.207" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/rotten"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:text="TextView"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.0"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/textView6"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.837" />-->
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="16dp"
+            android:text="Runtime"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.453"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

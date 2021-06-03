@@ -48,4 +48,18 @@ public class SharedBetweenFragments {
     public void setUser(FirebaseUser user) {
         this.user = user;
     }
+
+    public static int calculateFontSize(String string) {
+        if (string.length() <= 10) {
+            return 35;
+        }
+        if (string.length() <= 20) {
+            return 30;
+        }
+        if (string.length() <= 30) {
+            return 26;
+        }
+        return 20;
+    }
+
 }

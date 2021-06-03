@@ -3,6 +3,7 @@ package com.example.cinehub.Adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinehub.Movie.BookingDTO;
 import com.example.cinehub.Movie.BookingDTO;
 import com.example.cinehub.R;
+import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.ShowBookingCardBinding;
 import com.example.cinehub.databinding.ShowMovieCardBinding;
 import com.squareup.picasso.Picasso;
@@ -66,6 +68,8 @@ public class ShowBookingsAdapter extends RecyclerView.Adapter<ShowBookingsAdapte
         public void bind(BookingDTO item){
             Picasso.get().load(item.getPoster()).into(binding.image);
             binding.title.setText(item.getMovieTitle());
+            TextView movieTitle = binding.title;
+            movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(item.getMovieTitle()));
             binding.runningDate.setText(item.getRunningDate());
             binding.runningTime.setText(item.getRunningTime());
             binding.listOfReserverdSeats.setText(item.getListOfReservedSeats().toString());

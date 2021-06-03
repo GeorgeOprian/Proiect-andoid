@@ -3,6 +3,7 @@ package com.example.cinehub.Adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.R;
 
+import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.ShowMovieCardBinding;
 import com.squareup.picasso.Picasso;
 
@@ -65,6 +67,8 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
 
         public void bind(MovieDTO item){
             binding.title.setText(item.getTitle());
+            TextView movieTitle = binding.title;
+            movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(item.getTitle()));
             binding.imdbRating.setText(item.getImdbRating());
             binding.releasedDate.setText(item.getReleased()); //FIXME
             binding.duration.setText(item.getDuration());
@@ -77,6 +81,7 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
                 }
             });
         }
+
 
     }
 
