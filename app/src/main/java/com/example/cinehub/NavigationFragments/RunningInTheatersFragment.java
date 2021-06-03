@@ -74,4 +74,5 @@ public class RunningInTheatersFragment extends Fragment implements OnShowMovieIt
         SharedBetweenFragments.getInstance().setMovieToPassForDetailsDisplay(movie);
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.movieDetailsFragment);
     }
+
 }

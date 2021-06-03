@@ -19,12 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 
+import com.example.cinehub.NavigationFragments.RunningInTheatersFragment;
 import com.example.cinehub.connectivitymanager.NetworkChangeReceiver;
 import com.example.cinehub.connectivitymanager.NetworkListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -42,6 +45,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NetworkListener {
 
@@ -220,7 +225,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START); ///close the menu bar if the drawer is opened
         } else {
-            super.onBackPressed(); //close the activity on back pressed
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+            Fragment firstChild = currentFragment.getChildFragmentManager().getFragments().get(0);
+
+            if (firstChild.getClass() == RunningInTheatersFragment.class) {
+                moveTaskToBack(true);
+            }else {
+                super.onBackPressed(); //close the activity on back pressed
+            }
         }
 
     }

@@ -49,7 +49,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
+        hideBackButton();
         mAuth = FirebaseAuth.getInstance();
 
         createRequest();
@@ -64,6 +64,13 @@ public class SignInActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void hideBackButton() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(false);
+        }
     }
     private void initLoginData (){
         sharedPreferences = this.getSharedPreferences(SignInActivity.LOGIN_SHARED_PREF, MODE_PRIVATE);
@@ -142,8 +149,8 @@ public class SignInActivity extends AppCompatActivity {
         editor.apply();
     }
 
-
-
-
-
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }
