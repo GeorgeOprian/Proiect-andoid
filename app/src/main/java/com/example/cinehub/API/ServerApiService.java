@@ -17,6 +17,9 @@ public interface ServerApiService {
     @GET("all_movies")
     Call<GetMoviesDTO> getMovies();
 
+    @GET("search_movie_by_title")
+    Call<GetMoviesDTO> getMoviesByTitle(@Query("movie_title") String movie_title);
+
     @POST("add_movie")
     Call<MovieDTO> addMovie(@Body MovieDTO movieModel);
 
@@ -27,6 +30,6 @@ public interface ServerApiService {
     Call<GetBookingsDTO> getBookingsForUser(@Query("user_id") String userId);
 
     @DELETE("delete_movie")
-    Call<Void> deleteMovie(@Query("movie_title") String movie_title);
+    Call<Void> deleteMovie(@Query("imdb_id") String imdbId);
 
 }

@@ -72,10 +72,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         initLoginData();
         if (loggedInState == SignInActivity.USER_LOGED_OUT || user == null) {
-
             goToSignInActivity();
-
         }
+
         SharedBetweenFragments.getInstance().setUser(user);
         initNavigationComponent();
         decideEditPermisions();
@@ -167,15 +166,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void initNavigationComponent() {
         drawer = findViewById((R.id.drawer_layout));
         navigationView = findViewById(R.id.nav_view);
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_draw_open, R.string.navigation_draw_close);
-        drawer.addDrawerListener(toggle); //for screens readers
-
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationUI.setupWithNavController(navigationView, navController);

@@ -48,7 +48,6 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
     public void onBindViewHolder(@NonNull ShowMoviesAdapter.MovieViewHolder holder, int position) {
         holder.bind(localDataSet.get(position));
     }
-
     @Override
     public int getItemCount() {
         if(localDataSet == null)
@@ -57,7 +56,6 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
-
         private final ShowMovieCardBinding binding;
 
         public MovieViewHolder(ShowMovieCardBinding binding) {
@@ -73,7 +71,6 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
             binding.releasedDate.setText(item.getReleased()); //FIXME
             binding.duration.setText(item.getDuration());
             Picasso.get().load(item.getPoster()).into(binding.image);
-
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -81,8 +78,6 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
                 }
             });
         }
-
-
     }
 
 }

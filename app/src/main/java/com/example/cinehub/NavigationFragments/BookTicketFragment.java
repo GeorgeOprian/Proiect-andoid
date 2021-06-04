@@ -27,6 +27,8 @@ import com.example.cinehub.databinding.FragmentBookTicketBinding;
 import com.example.cinehub.databinding.FragmentBookingsBinding;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.*;
@@ -48,6 +50,7 @@ public class BookTicketFragment extends Fragment {
 
 
     @Override
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_book_ticket, container, false);
         movie = SharedBetweenFragments.getInstance().getMovieToPassForDetailsDisplay();
@@ -56,11 +59,20 @@ public class BookTicketFragment extends Fragment {
         return dataBinding.getRoot();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initLayout() {
         dataBinding.movieTitle.setText(movie.getTitle());
         dataBinding.runningDate.setText(movie.getRunningDate());
         dataBinding.hallNumber.setText(movie.getHallNumber());
-        dataBinding.listOfSeats.setText(movie.getOccupiedSeatsString());
+        {
+            List<Integer> listOfSeats =  movie.getOccupiedSeats();
+            Collections.sort(listOfSeats);
+            char[] listOfSeatsString = listOfSeats.toString().toCharArray();
+            listOfSeatsString[0] = ' ';
+            listOfSeatsString[listOfSeats.toString().length() - 1] = ' ';
+
+            dataBinding.listOfSeats.setText(String.valueOf(listOfSeatsString));
+        }
         listOfSeatsInput = dataBinding.listOfSeatsInput;
         initBookingsButton();
     }

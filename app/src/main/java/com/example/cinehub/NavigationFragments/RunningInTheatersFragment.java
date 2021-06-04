@@ -36,7 +36,6 @@ public class RunningInTheatersFragment extends Fragment implements OnShowMovieIt
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_running_in_theaters, container, false);
         initAdapter();
-
         getMoviesFromDataBase();
         return  dataBinding.getRoot();
     }

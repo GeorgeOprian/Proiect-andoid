@@ -51,8 +51,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         hideBackButton();
         mAuth = FirebaseAuth.getInstance();
-
-        createRequest();
+        createSignInClient();
 
         signInButton = findViewById(R.id.google_signIn_button);
 
@@ -78,12 +77,11 @@ public class SignInActivity extends AppCompatActivity {
 
 
 
-    private void createRequest() {
+    private void createSignInClient() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
@@ -97,18 +95,15 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             Exception taskException = task.getException();
             if (task.isSuccessful()) {
                 try {
-                    // Google Sign In was successful, authenticate with Firebase
                     GoogleSignInAccount account = task.getResult(ApiException.class);
+                    //gestioneaza raspunsul de la Firebase
                     firebaseAuthWithGoogle(account.getIdToken());
                 } catch (ApiException e) {
-                    // Google Sign In failed, update UI appropriately
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else {
