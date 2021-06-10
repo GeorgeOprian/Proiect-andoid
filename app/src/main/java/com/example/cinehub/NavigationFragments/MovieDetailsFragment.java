@@ -29,7 +29,7 @@ public class MovieDetailsFragment extends Fragment {
     private TextView plot;
     private TextView imdb_rating;
     private TextView actors;
-    private  TextView rotten;
+    private  TextView genre;
 
 
     @Override
@@ -53,7 +53,7 @@ public class MovieDetailsFragment extends Fragment {
         plot = dataBinding.plot;
         imdb_rating = dataBinding.imdbRating;
         actors = dataBinding.actors;
-
+        genre = dataBinding.genre;
         movieTitle.setText(movie.getTitle());
         movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(movie.getTitle()));
         released_date.setText(movie.getReleased());
@@ -62,7 +62,7 @@ public class MovieDetailsFragment extends Fragment {
         imdb_rating.setText(movie.getImdbRating());
         actors.setText(movie.getActors());
         Picasso.get().load(movie.getPoster()).into(dataBinding.image);
-
+        genre.setText(movie.getGenre());
         initBookingsButton();
     }
 
