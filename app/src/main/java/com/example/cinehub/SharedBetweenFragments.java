@@ -4,6 +4,8 @@ import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.Movie.MovieModel;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+
 public class SharedBetweenFragments {
 
     private static SharedBetweenFragments instance;
@@ -15,6 +17,7 @@ public class SharedBetweenFragments {
     public static final int INTERNAL_SERVER_ERROR = 500;
     public static final int MAX_NUMBER_OF_SEATS_IN_HALL = 50;
     private FirebaseUser user;
+    private List<MovieDTO> listOfRunningMovies;
 
     private SharedBetweenFragments() { }
 
@@ -62,4 +65,11 @@ public class SharedBetweenFragments {
         return 20;
     }
 
+    public List<MovieDTO> getListOfRunningMovies() {
+        return listOfRunningMovies;
+    }
+
+    public void setListOfRunningMovies(List<MovieDTO> listOfRunningMovies) {
+        this.listOfRunningMovies = listOfRunningMovies;
+    }
 }
