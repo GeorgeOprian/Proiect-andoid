@@ -66,7 +66,7 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
         public void bind(MovieDTO item){
             binding.title.setText(item.getTitle());
             TextView movieTitle = binding.title;
-            movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(item.getTitle()));
+//            movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(item.getTitle()));
             binding.imdbRating.setText(item.getImdbRating());
             binding.releasedDate.setText(item.getReleased()); //FIXME
             binding.duration.setText(item.getDuration());

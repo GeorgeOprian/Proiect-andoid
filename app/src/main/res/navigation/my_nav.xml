@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/updateMovieFragment"
-        android:name="com.example.cinehub.UpdateMovieFragment"
+        android:name="com.example.cinehub.NavigationFragments.UpdateMovieFragment"
         android:label="fragment_update_movie"
         tools:layout="@layout/fragment_update_movie" >
         <action

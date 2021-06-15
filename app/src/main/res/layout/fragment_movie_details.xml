@@ -29,6 +29,8 @@
             android:layout_height="67dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="13dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

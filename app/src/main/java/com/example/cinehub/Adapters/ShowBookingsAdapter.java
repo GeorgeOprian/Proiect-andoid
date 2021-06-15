@@ -69,7 +69,7 @@ public class ShowBookingsAdapter extends RecyclerView.Adapter<ShowBookingsAdapte
             Picasso.get().load(item.getPoster()).into(binding.image);
             binding.title.setText(item.getMovieTitle());
             TextView movieTitle = binding.title;
-            movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(item.getMovieTitle()));
+//            movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(item.getMovieTitle()));
             binding.runningDate.setText(item.getRunningDate());
             binding.runningTime.setText(item.getRunningTime());
             binding.listOfReserverdSeats.setText(item.getListOfReservedSeats().toString());

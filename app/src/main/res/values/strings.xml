@@ -29,6 +29,7 @@
     <string name="book_tickes">Book tickets</string>
     <string name="imdb_rating">IMDB rating:</string>
     <string name="imdb">IMDB: </string>
+    <string name="movie_title_to_be_updated">Movie title to be updated</string>
 
     <string-array name="halls_numbers">
         <item>1</item>

@@ -18,6 +18,7 @@ public class ManageMoviesFragment extends Fragment {
 
     private FragmentManageMoviesBinding dataBinding;
     private Button searchMovieButton;
+    private Button updateMovieButton;
     private Button deleteMovieButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +39,15 @@ public class ManageMoviesFragment extends Fragment {
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.searchMovieFragment);
             }
         });
+
+        updateMovieButton = dataBinding.updateButton;
+        updateMovieButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.updateMovieFragment);
+            }
+        });
+
         deleteMovieButton = dataBinding.deleteButton;
         deleteMovieButton.setOnClickListener(new View.OnClickListener() {
             @Override
