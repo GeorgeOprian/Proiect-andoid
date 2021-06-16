@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.view.LayoutInflater;
@@ -99,12 +100,10 @@ public class UpdateMovieFragment extends Fragment implements OnShowMovieItemClic
         });
     }
 
-    private void updateMovieRequest(String imdbId) {
-
-    }
 
     @Override
     public void onItemClick(MovieDTO movie) {
-        updateMovieRequest(movie.getImdbID());
+        SharedBetweenFragments.getInstance().setMovieToBeUpdated(movie);
+        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.updateRuningDetailsFragment);
     }
 }

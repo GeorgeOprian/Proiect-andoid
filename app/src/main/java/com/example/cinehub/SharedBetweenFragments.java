@@ -18,6 +18,7 @@ public class SharedBetweenFragments {
     public static final int MAX_NUMBER_OF_SEATS_IN_HALL = 50;
     private FirebaseUser user;
     private List<MovieDTO> listOfRunningMovies;
+    private MovieDTO movieToBeUpdated;
 
     private SharedBetweenFragments() { }
 
@@ -71,5 +72,13 @@ public class SharedBetweenFragments {
 
     public void setListOfRunningMovies(List<MovieDTO> listOfRunningMovies) {
         this.listOfRunningMovies = listOfRunningMovies;
+    }
+
+    public MovieDTO getMovieToBeUpdated() {
+        return movieToBeUpdated;
+    }
+
+    public void setMovieToBeUpdated(MovieDTO movieToBeUpdated) {
+        this.movieToBeUpdated = movieToBeUpdated;
     }
 }

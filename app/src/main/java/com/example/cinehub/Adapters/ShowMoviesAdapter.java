@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.R;
 
-import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.ShowMovieCardBinding;
 import com.squareup.picasso.Picasso;
 
@@ -38,6 +37,7 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
     public ShowMoviesAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ShowMoviesAdapter.MovieViewHolder(DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
+//                R.layout.show_movie_card,
                 R.layout.show_movie_card,
                 parent,
                 false)
@@ -67,9 +67,9 @@ public class ShowMoviesAdapter extends RecyclerView.Adapter<ShowMoviesAdapter.Mo
             binding.title.setText(item.getTitle());
             TextView movieTitle = binding.title;
 //            movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(item.getTitle()));
-            binding.imdbRating.setText(item.getImdbRating());
-            binding.releasedDate.setText(item.getReleased()); //FIXME
-            binding.duration.setText(item.getDuration());
+            binding.hallNumber.setText(item.getHallNumber());
+            binding.runningDate.setText(item.getRunningDate());
+            binding.runningTime.setText(item.getRunningTime());
             Picasso.get().load(item.getPoster()).into(binding.image);
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override

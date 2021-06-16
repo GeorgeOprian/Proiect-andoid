@@ -238,4 +238,29 @@ public class MovieDTO {
         }
         return s;
     }
+
+    public static MovieDTO createMovieDTO(MovieModel current, String date, String time, String hallNumber) {
+        MovieDTO dto = new MovieDTO();
+        dto.setImdbID(current.getImdbID());
+        dto.setTitle(current.getTitle());
+        dto.setReleased(current.getReleased());
+        dto.setDuration(current.getRuntime());
+        dto.setGenre(current.getGenre());
+        dto.setDirector(current.getDirector());
+        dto.setWriter(current.getWriter());
+        dto.setActors(current.getActors());
+        dto.setPlot(current.getPlot());
+        dto.setLanguage(current.getLanguage());
+        dto.setAwards(current.getAwards());
+        dto.setPoster(current.getPoster());
+        dto.setRatings(current.getRatings());
+        dto.setImdbRating(current.getImdbRating());
+        dto.setBoxOffice(current.getBoxOffice());
+
+        dto.setRunningDate(date);
+        dto.setRunningTime(time);
+        dto.setHallNumber(hallNumber);
+
+        return dto;
+    }
 }

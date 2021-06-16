@@ -27,9 +27,8 @@ import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.Movie.MovieModel;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
-import com.example.cinehub.databinding.FragmentRunningDetailsBinding;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.cinehub.databinding.FragmentUpdateMovieBinding;
+import com.example.cinehub.databinding.FragmentUpdateRuningDetailsBinding;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -40,10 +39,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+public class UpdateRuningDetailsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-public class RunningDetailsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+    private FragmentUpdateRuningDetailsBinding dataBinding;
 
-    private FragmentRunningDetailsBinding dataBinding;
     private ArrayAdapter<CharSequence> adapter;
     private Spinner spinner;
     private Button addToDbButton;
@@ -53,30 +52,27 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
 
-    private MovieModel movie = SharedBetweenFragments.getInstance().getMovieToAddDisplayData();
-
-    private MovieDTO movieDTO;
+    private MovieDTO movie;
     private LocalDate datePicked;
     private LocalTime timePicked;
     private String hallPicked;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_running_details, container, false);
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_update_runing_details, container, false);
+
+        movie = SharedBetweenFragments.getInstance().getMovieToBeUpdated();
+        dataBinding.runningDetailsMovieTitle.setText(movie.getTitle());
+
+        addToDbButton = dataBinding.addToDbButton;
 
         initSpinner();
         initDatePickerButton();
         initTimePickerButton();
 
-
-        MovieModel movie = SharedBetweenFragments.getInstance().getMovieToAddDisplayData();
-        dataBinding.runningDetailsMovieTitle.setText(movie.getTitle());
-
-        addToDbButton = dataBinding.addToDbButton;
         initAddToDbButton();
-
 //        Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
 
         return dataBinding.getRoot();
@@ -92,8 +88,8 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void initTimePickerButton() {
-        initTimePicker();
         timeButton = dataBinding.timePickerButton;
+        initTimePicker();
         initTimeButtonClickAction();
     }
 
@@ -142,15 +138,15 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
             }
         };
 
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+        LocalDate runningDate = LocalDate.parse(movie.getRunningDate());
+        int year = runningDate.getYear();
+        int month = runningDate.getMonthValue();
+        int day = runningDate.getDayOfMonth();
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         datePickerDialog = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
-        datePicked = LocalDate.now();
+        datePicked = LocalDate.parse(movie.getRunningDate());
 
     }
 
@@ -219,7 +215,8 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
             }
         };
         int style = AlertDialog.THEME_HOLO_LIGHT;
-        timePicked = LocalTime.parse("12:00");
+        timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()));
+        timePicked = LocalTime.parse(movie.getRunningTime());
         initTimePickerDialog(onTimeSetListener, style);
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -238,6 +235,10 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        String hall = movie.getHallNumber();
+        spinner.setSelection(adapter.getPosition(hall));
+
     }
 
     private void initDateButtonClickAction () {
@@ -263,37 +264,36 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
         addToDbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMovieToDB();
+                updateMovie();
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.searchMovieFragment);
             }
         });
     }
 
-    private void sendMovieToDB() {
-        movieDTO = MovieDTO.createMovieDTO(movie, datePicked.toString(), timePicked.toString(), hallPicked);
-        Call<MovieDTO>call = ServerAPIBuilder.getInstance().addMovie(movieDTO);
-        call.enqueue(new Callback<MovieDTO>() {
-            @Override
-            public void onResponse(Call<MovieDTO> call, Response<MovieDTO> response) {
-                if (!response.isSuccessful()) {
-                    if (response.code() == SharedBetweenFragments.INTERNAL_SERVER_ERROR) {
-                        Toast.makeText(getContext(), "Internal server error", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (response.code() == SharedBetweenFragments.COULD_NOT_INSERT_IN_DB) {
-                            Toast.makeText(getContext(), "There's another movie running at that time", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
-                        }
-                    return;
-                }
-                Toast.makeText(getContext(), "Movie was successfully added to database", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<MovieDTO> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+    private void updateMovie() {
+//        Call<MovieDTO> call = ServerAPIBuilder.getInstance().addMovie(movie);
+//        call.enqueue(new Callback<MovieDTO>() {
+//            @Override
+//            public void onResponse(Call<MovieDTO> call, Response<MovieDTO> response) {
+//                if (!response.isSuccessful()) {
+//                    if (response.code() == SharedBetweenFragments.INTERNAL_SERVER_ERROR) {
+//                        Toast.makeText(getContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+//                    }
+//                    else if (response.code() == SharedBetweenFragments.COULD_NOT_INSERT_IN_DB) {
+//                        Toast.makeText(getContext(), "There's another movie running at that time", Toast.LENGTH_LONG).show();
+//                    } else {
+//                        Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
+//                    }
+//                    return;
+//                }
+//                Toast.makeText(getContext(), "Movie was successfully added to database", Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MovieDTO> call, Throwable t) {
+//                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
 
@@ -306,7 +306,4 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
-
-
 }

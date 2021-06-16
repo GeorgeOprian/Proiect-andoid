@@ -52,21 +52,21 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="99dp"
-            android:layout_height="21dp"
+            android:layout_width="64dp"
+            android:layout_height="23dp"
             android:layout_marginStart="28dp"
             android:layout_marginTop="16dp"
-            android:text="Running date"
+            android:text="Released"
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.103"
+            app:layout_constraintHorizontal_bias="0.111"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.073" />
+            app:layout_constraintVertical_bias="0.025" />
 
         <TextView
-            android:id="@+id/running_date"
+            android:id="@+id/released_date"
             android:layout_width="91dp"
             android:layout_height="21dp"
             android:layout_marginTop="19dp"
@@ -75,35 +75,36 @@
             android:text="01 Jan 2021"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.307"
+            app:layout_constraintHorizontal_bias="0.235"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="87dp"
-            android:layout_height="21dp"
+            android:layout_width="56dp"
+            android:layout_height="22dp"
             android:layout_marginTop="16dp"
-            android:text="Hall number"
-
+            android:text="@string/imdb"
+            android:textAlignment="center"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/year"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.232"
+            app:layout_constraintHorizontal_bias="0.222"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <TextView
-            android:id="@+id/hall_number"
-            android:layout_width="25dp"
-            android:layout_height="18dp"
-            android:text="8"
+            android:id="@+id/imdb_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8.1"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.205"
+            app:layout_constraintHorizontal_bias="0.176"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_constraintVertical_bias="0.421" />
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <TextView
             android:id="@+id/textView11"
@@ -111,23 +112,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="31dp"
             android:layout_marginTop="2dp"
-            android:text="Running time"
+            android:text="Duration"
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.075"
+            app:layout_constraintHorizontal_bias="0.09"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layout_constraintVertical_bias="0.571" />
+            app:layout_constraintVertical_bias="0.47" />
 
         <TextView
-            android:id="@+id/running_time"
+            android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="29dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="108dp"
-            android:text="12:00"
+            android:text="120 min"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

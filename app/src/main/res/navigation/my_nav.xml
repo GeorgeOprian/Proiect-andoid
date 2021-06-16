@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/runningInTheatersFragment">
+    app:startDestination="@id/updateMovieFragment">
     <fragment
         android:id="@+id/runningInTheatersFragment"
         android:name="com.example.cinehub.NavigationFragments.RunningInTheatersFragment"
@@ -114,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/updateRuningDetailsFragment"
-        android:name="com.example.cinehub.UpdateRuningDetailsFragment"
+        android:name="com.example.cinehub.NavigationFragments.UpdateRuningDetailsFragment"
         android:label="fragment_update_runing_details"
         tools:layout="@layout/fragment_update_runing_details" >
         <action
