@@ -4,12 +4,15 @@ import com.example.cinehub.Movie.BookingDTO;
 import com.example.cinehub.Movie.GetBookingsDTO;
 import com.example.cinehub.Movie.GetMoviesDTO;
 import com.example.cinehub.Movie.MovieDTO;
+import com.example.cinehub.Movie.RunningDTO;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -31,5 +34,12 @@ public interface ServerApiService {
 
     @DELETE("delete_movie")
     Call<Void> deleteMovie(@Query("imdb_id") String imdbId);
+
+    @POST("update_movie")
+    Call<RunningDTO> updateMovieRunningDetails(@Body RunningDTO running);
+
+    @DELETE("delete_booking")
+    Call<Void> deleteBooking(@Query("booking_id") String bookingId);
+
 
 }

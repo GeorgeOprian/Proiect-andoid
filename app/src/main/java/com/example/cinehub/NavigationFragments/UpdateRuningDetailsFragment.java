@@ -24,10 +24,9 @@ import android.widget.Toast;
 
 import com.example.cinehub.API.ServerAPIBuilder;
 import com.example.cinehub.Movie.MovieDTO;
-import com.example.cinehub.Movie.MovieModel;
+import com.example.cinehub.Movie.RunningDTO;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
-import com.example.cinehub.databinding.FragmentUpdateMovieBinding;
 import com.example.cinehub.databinding.FragmentUpdateRuningDetailsBinding;
 
 import java.time.LocalDate;
@@ -57,6 +56,8 @@ public class UpdateRuningDetailsFragment extends Fragment implements AdapterView
     private LocalTime timePicked;
     private String hallPicked;
 
+    private RunningDTO running;
+
     @Override
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +74,8 @@ public class UpdateRuningDetailsFragment extends Fragment implements AdapterView
         initTimePickerButton();
 
         initAddToDbButton();
+
+        running = RunningDTO.createRunningDTO(movie);
 //        Toast.makeText(getContext(), movie.getTitle() + "was added to data base", Toast.LENGTH_LONG).show();
 
         return dataBinding.getRoot();
@@ -82,7 +85,7 @@ public class UpdateRuningDetailsFragment extends Fragment implements AdapterView
     private void initDatePickerButton() {
         initDatePicker();
         dateButton = dataBinding.datePickerButton;
-        dateButton.setText(getTodaysDate());
+        dateButton.setText(getMovieDate());
         initDateButtonClickAction();
     }
 
@@ -93,14 +96,13 @@ public class UpdateRuningDetailsFragment extends Fragment implements AdapterView
         initTimeButtonClickAction();
     }
 
-
-    private String getTodaysDate()
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String getMovieDate()
     {
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        month = month + 1;
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+        LocalDate runningDate = LocalDate.parse(movie.getRunningDate());
+        int year = runningDate.getYear();
+        int month = runningDate.getMonthValue();
+        int day = runningDate.getDayOfMonth();
         return makeDateString(day, month, year);
     }
 
@@ -215,7 +217,8 @@ public class UpdateRuningDetailsFragment extends Fragment implements AdapterView
             }
         };
         int style = AlertDialog.THEME_HOLO_LIGHT;
-        timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()));
+        LocalTime movieRunningTime = LocalTime.parse(movie.getRunningTime());
+        timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", movieRunningTime.getHour(), movieRunningTime.getMinute()));
         timePicked = LocalTime.parse(movie.getRunningTime());
         initTimePickerDialog(onTimeSetListener, style);
     }
@@ -264,36 +267,40 @@ public class UpdateRuningDetailsFragment extends Fragment implements AdapterView
         addToDbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateMovie();
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.searchMovieFragment);
+                updateRunningDetails();
+                updateMovie(running);
+
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.updateMovieFragment);
             }
         });
     }
+    private void updateRunningDetails() {
+        running.setRunningDate(datePicked.toString());
+        running.setRunningTime(timePicked.toString());
+        running.setHallNumber(hallPicked);
+    }
+    private void updateMovie(RunningDTO runningDTO) {
+        Call<RunningDTO> call =  ServerAPIBuilder.getInstance().updateMovieRunningDetails(runningDTO);
+        call.enqueue(new Callback<RunningDTO>() {
+            @Override
+            public void onResponse(Call<RunningDTO> call, Response<RunningDTO> response) {
+                if (!response.isSuccessful()) {
+                    if (response.code() == SharedBetweenFragments.COULD_NOT_INSERT_IN_DB) {
+                        Toast.makeText(getContext(), "There is another movie with the running details that you provided.", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
+                    }
+                    return;
+                }
+                Toast.makeText(getContext(), "The running was successfully updated.", Toast.LENGTH_LONG).show();
+            }
 
-    private void updateMovie() {
-//        Call<MovieDTO> call = ServerAPIBuilder.getInstance().addMovie(movie);
-//        call.enqueue(new Callback<MovieDTO>() {
-//            @Override
-//            public void onResponse(Call<MovieDTO> call, Response<MovieDTO> response) {
-//                if (!response.isSuccessful()) {
-//                    if (response.code() == SharedBetweenFragments.INTERNAL_SERVER_ERROR) {
-//                        Toast.makeText(getContext(), "Internal server error", Toast.LENGTH_SHORT).show();
-//                    }
-//                    else if (response.code() == SharedBetweenFragments.COULD_NOT_INSERT_IN_DB) {
-//                        Toast.makeText(getContext(), "There's another movie running at that time", Toast.LENGTH_LONG).show();
-//                    } else {
-//                        Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
-//                    }
-//                    return;
-//                }
-//                Toast.makeText(getContext(), "Movie was successfully added to database", Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MovieDTO> call, Throwable t) {
-//                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
+            @Override
+            public void onFailure(Call<RunningDTO> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 

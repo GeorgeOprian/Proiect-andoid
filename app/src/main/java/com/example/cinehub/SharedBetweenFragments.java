@@ -1,5 +1,6 @@
 package com.example.cinehub;
 
+import com.example.cinehub.Movie.BookingDTO;
 import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.Movie.MovieModel;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +20,7 @@ public class SharedBetweenFragments {
     private FirebaseUser user;
     private List<MovieDTO> listOfRunningMovies;
     private MovieDTO movieToBeUpdated;
+    private BookingDTO bookingToBeDisplayed;
 
     private SharedBetweenFragments() { }
 
@@ -80,5 +82,13 @@ public class SharedBetweenFragments {
 
     public void setMovieToBeUpdated(MovieDTO movieToBeUpdated) {
         this.movieToBeUpdated = movieToBeUpdated;
+    }
+
+    public BookingDTO getBookingToBeDisplayed() {
+        return bookingToBeDisplayed;
+    }
+
+    public void setBookingToBeDisplayed(BookingDTO bookingToBeDisplayed) {
+        this.bookingToBeDisplayed = bookingToBeDisplayed;
     }
 }

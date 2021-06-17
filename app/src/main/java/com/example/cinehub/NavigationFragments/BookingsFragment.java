@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.cinehub.API.ServerAPIBuilder;
@@ -69,7 +70,8 @@ public class BookingsFragment extends Fragment implements OnShowBookingItemClick
         });
     }
     @Override
-    public void onItemClick(BookingDTO movie) {
-        Toast.makeText(getContext(), movie.getMovieTitle(), Toast.LENGTH_LONG).show();
+    public void onItemClick(BookingDTO booking) {
+        SharedBetweenFragments.getInstance().setBookingToBeDisplayed(booking);
+        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.displayBookingFragment);
     }
 }

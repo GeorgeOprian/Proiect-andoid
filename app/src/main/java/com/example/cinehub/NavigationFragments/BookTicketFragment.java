@@ -142,7 +142,7 @@ public class BookTicketFragment extends Fragment {
                     }
                     return;
                 }
-                Toast.makeText(getContext(), "Booking was successfully sent to the server", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Booking was successfully sent to the server.", Toast.LENGTH_LONG).show();
             }
 
             @Override

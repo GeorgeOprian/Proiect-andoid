@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_bookingsFragment_to_runningInTheatersFragment"
             app:destination="@id/runningInTheatersFragment" />
+        <action
+            android:id="@+id/action_bookingsFragment_to_displayBookingFragment"
+            app:destination="@id/displayBookingFragment" />
     </fragment>
     <fragment
         android:id="@+id/runningDetailsFragment"
@@ -120,5 +123,14 @@
         <action
             android:id="@+id/action_updateRuningDetailsFragment_to_updateMovieFragment"
             app:destination="@id/updateMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayBookingFragment"
+        android:name="com.example.cinehub.NavigationFragments.DisplayBookingFragment"
+        android:label="fragment_display_booking"
+        tools:layout="@layout/fragment_display_booking" >
+        <action
+            android:id="@+id/action_displayBookingFragment_to_bookingsFragment"
+            app:destination="@id/bookingsFragment" />
     </fragment>
 </navigation>
