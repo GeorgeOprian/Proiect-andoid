@@ -30,6 +30,7 @@
     <string name="imdb_rating">IMDB rating:</string>
     <string name="imdb">IMDB: </string>
     <string name="movie_title_to_be_updated">Movie title to be updated</string>
+    <string name="QR_code_generation_info">Scan the qr code to use the booking. (If the QR code does not appear on the screen it means that the booking expired or there were some problems generating the QR code.)</string>
 
     <string-array name="halls_numbers">
         <item>1</item>

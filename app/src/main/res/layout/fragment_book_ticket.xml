@@ -139,6 +139,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="The hall has 50 seats, 10 seats on row and the corridor is in the middle."
+            android:justificationMode="inter_word"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -162,16 +163,16 @@
 
         <TextView
             android:id="@+id/list_of_seats"
-            android:layout_width="229dp"
-            android:layout_height="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="1, 2, 3, 4, 5, 6 ,7"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.928"
+            app:layout_constraintHorizontal_bias="0.575"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.571" />
+            app:layout_constraintVertical_bias="0.569" />
 
         <EditText
             android:id="@+id/list_of_seats_input"

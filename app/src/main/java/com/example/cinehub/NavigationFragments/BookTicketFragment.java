@@ -88,7 +88,7 @@ public class BookTicketFragment extends Fragment {
                     BookingDTO booking = createBooking();
                     if (booking != null) {
                         sendBookingToServer(booking);
-                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runningInTheatersFragment);
+
                     }
                  }
             }
@@ -101,6 +101,7 @@ public class BookTicketFragment extends Fragment {
         String userId = SharedBetweenFragments.getInstance().getUser().getUid();
         bookingDTO.setUserId(userId);
         bookingDTO.setRunningId(movie.getRunningId());
+        bookingDTO.setHallNumber(movie.getHallNumber());
         List<Integer> listOfSeats = createListOfSeats();
         if (listOfSeats != null) {
 //            if (!areTheSeatsReserverd(listOfSeats)) {
@@ -136,13 +137,16 @@ public class BookTicketFragment extends Fragment {
                 if (!response.isSuccessful()) {
                     if (response.code() == SharedBetweenFragments.COULD_NOT_INSERT_IN_DB) {
                         Toast.makeText(getContext(), "The seats that you want to reserve were already booked", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.bookTicketFragment);
                     }
                     else {
                         Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
+                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.bookTicketFragment);
                     }
                     return;
                 }
                 Toast.makeText(getContext(), "Booking was successfully sent to the server.", Toast.LENGTH_LONG).show();
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runningInTheatersFragment);
             }
 
             @Override

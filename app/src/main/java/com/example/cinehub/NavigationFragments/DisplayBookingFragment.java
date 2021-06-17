@@ -1,5 +1,6 @@
 package com.example.cinehub.NavigationFragments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -14,14 +15,18 @@ import android.widget.Toast;
 
 import com.example.cinehub.API.ServerAPIBuilder;
 import com.example.cinehub.Movie.BookingDTO;
-import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.FragmentDisplayBookingBinding;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,12 +53,48 @@ public class DisplayBookingFragment extends Fragment {
 
     private void initLayout() {
         dataBinding.movieTitle.setText(booking.getMovieTitle());
-        Picasso.get().load(booking.getPoster()).into(dataBinding.mooviePoster);
+        Bitmap bookingQRCode = createQRCode(booking.getBookingId());
+//        Picasso.get().load(booking.getPoster()).into(dataBinding.mooviePoster);
+        LocalDate runningDate = LocalDate.parse(booking.getRunningDate());
+        LocalTime runningTime = LocalTime.parse(booking.getRunningTime());
+        if (isBookingAvailable() && bookingQRCode != null) {
+            dataBinding.bookingQrCode.setImageBitmap(bookingQRCode);
+        } else {
+            Picasso.get().load(booking.getPoster()).into(dataBinding.bookingQrCode);
+        }
+        dataBinding.hallNumber.setText(booking.getHallNumber());
         dataBinding.runningDate.setText(booking.getRunningDate());
         dataBinding.runningTime.setText(booking.getRunningTime());
-        dataBinding.listOfReserverdSeats.setText(booking.getListOfReservedSeats().toString());
+        dataBinding.reservedSeats.setText(booking.getListOfReservedSeats().toString());
         dataBinding.bookingId.setText(booking.getBookingId());
+
         initDeleteMovieButton();
+    }
+
+    private boolean isBookingAvailable() {
+        LocalDate runningDate = LocalDate.parse(booking.getRunningDate());
+        LocalTime runningTime = LocalTime.parse(booking.getRunningTime());
+
+        if(LocalDate.now().isBefore(runningDate)) {
+            return true;
+        }
+        if (LocalDate.now().equals(runningDate) && LocalTime.now().isBefore(runningTime)) {
+            return true;
+        }
+        return false;
+    }
+
+    private Bitmap createQRCode (String bookingId) {
+        MultiFormatWriter writer = new MultiFormatWriter();
+        try {
+            BitMatrix matrix = writer.encode(bookingId, BarcodeFormat.QR_CODE, 350, 350);
+            BarcodeEncoder encoder = new BarcodeEncoder();
+            Bitmap qrBitmap = encoder.createBitmap(matrix);
+            return qrBitmap;
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void initDeleteMovieButton() {

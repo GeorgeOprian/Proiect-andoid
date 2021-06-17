@@ -21,6 +21,7 @@ public class SharedBetweenFragments {
     private List<MovieDTO> listOfRunningMovies;
     private MovieDTO movieToBeUpdated;
     private BookingDTO bookingToBeDisplayed;
+    private List<BookingDTO> listOfBookings;
 
     private SharedBetweenFragments() { }
 
@@ -90,5 +91,13 @@ public class SharedBetweenFragments {
 
     public void setBookingToBeDisplayed(BookingDTO bookingToBeDisplayed) {
         this.bookingToBeDisplayed = bookingToBeDisplayed;
+    }
+
+    public List<BookingDTO> getListOfBookings() {
+        return listOfBookings;
+    }
+
+    public void setListOfBookings(List<BookingDTO> listOfBookings) {
+        this.listOfBookings = listOfBookings;
     }
 }

@@ -99,32 +99,34 @@
 
             android:layout_marginLeft="20dp"
             android:layout_marginRight="25dp"
+            android:justificationMode="inter_word"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.072"
+            app:layout_constraintHorizontal_bias="0.363"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image"
-            app:layout_constraintVertical_bias="0.313" />
+            app:layout_constraintVertical_bias="0.309" />
 
         <TextView
             android:id="@+id/plot"
-            android:layout_width="354dp"
+            android:layout_width="356dp"
             android:layout_height="152dp"
-            android:layout_marginTop="56dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="56dp"
             android:layout_marginRight="20dp"
+            android:justificationMode="inter_word"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintHorizontal_bias="0.436"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/actors"
-            app:layout_constraintVertical_bias="0.065" />
+            app:layout_constraintVertical_bias="0.068" />
 
         <TextView
             android:id="@+id/textView12"

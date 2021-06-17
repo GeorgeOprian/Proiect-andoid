@@ -70,6 +70,7 @@ public class ShowBookingsAdapter extends RecyclerView.Adapter<ShowBookingsAdapte
             binding.title.setText(item.getMovieTitle());
             TextView movieTitle = binding.title;
 //            movieTitle.setTextSize(SharedBetweenFragments.calculateFontSize(item.getMovieTitle()));
+            binding.hallNumber.setText(item.getHallNumber());
             binding.runningDate.setText(item.getRunningDate());
             binding.runningTime.setText(item.getRunningTime());
             binding.listOfReserverdSeats.setText(item.getListOfReservedSeats().toString());

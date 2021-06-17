@@ -19,9 +19,12 @@ import com.example.cinehub.Adapters.OnShowBookingItemClickListener;
 import com.example.cinehub.Adapters.ShowBookingsAdapter;
 import com.example.cinehub.Movie.BookingDTO;
 import com.example.cinehub.Movie.GetBookingsDTO;
+import com.example.cinehub.Movie.MovieDTO;
 import com.example.cinehub.R;
 import com.example.cinehub.SharedBetweenFragments;
 import com.example.cinehub.databinding.FragmentBookingsBinding;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,15 +34,33 @@ public class BookingsFragment extends Fragment implements OnShowBookingItemClick
 
     private FragmentBookingsBinding dataBinding;
     private ShowBookingsAdapter adapter;
+    private List<BookingDTO> bookings;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getBookingsFromDB();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookings, container, false);
         initAdapter();
-        getBookingsFromDB();
         return  dataBinding.getRoot();
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedBetweenFragments.getInstance().setListOfBookings(bookings);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<BookingDTO> list = SharedBetweenFragments.getInstance().getListOfBookings();
+        adapter.submitList(list);
+    }
     private void initAdapter(){
         adapter = new ShowBookingsAdapter(this);
         dataBinding.container.setLayoutManager(new GridLayoutManager(getContext(), 1));
@@ -60,7 +81,8 @@ public class BookingsFragment extends Fragment implements OnShowBookingItemClick
                 if (response.body().getBookingsList().size() == 0) {
                     Toast.makeText(getContext(), "You don't have any bookings", Toast.LENGTH_LONG).show();
                 }
-                adapter.submitList(response.body().getBookingsList());
+                bookings = response.body().getBookingsList();
+                adapter.submitList(bookings);
             }
 
             @Override

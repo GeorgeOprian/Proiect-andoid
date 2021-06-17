@@ -36,6 +36,9 @@ public class BookingDTO {
     @SerializedName("DateTime")
     @Expose
     private String dateTime;
+    @SerializedName("HallNumber")
+    @Expose
+    private String hallNumber;
 
     public String getBookingId() {
         return bookingId;
@@ -107,5 +110,13 @@ public class BookingDTO {
 
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getHallNumber() {
+        return hallNumber;
+    }
+
+    public void setHallNumber(String hallNumber) {
+        this.hallNumber = hallNumber;
     }
 }

@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.cinehub"
-        minSdkVersion 23
+        minSdkVersion 30
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -90,5 +90,9 @@ dependencies {
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //QR
+    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
 
 }

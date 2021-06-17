@@ -36,7 +36,7 @@
             android:layout_width="216dp"
             android:layout_height="67dp"
 
-            android:paddingLeft="15dp"
+            android:paddingLeft="5dp"
             android:paddingRight="20dp"
             android:layout_marginStart="28dp"
             android:autoSizeMaxTextSize="26dp"
