@@ -277,16 +277,16 @@ public class RunningDetailsFragment extends Fragment implements AdapterView.OnIt
             public void onResponse(Call<MovieDTO> call, Response<MovieDTO> response) {
                 if (!response.isSuccessful()) {
                     if (response.code() == SharedBetweenFragments.INTERNAL_SERVER_ERROR) {
-                        Toast.makeText(getContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Internal server error.", Toast.LENGTH_SHORT).show();
                     }
                     else if (response.code() == SharedBetweenFragments.COULD_NOT_INSERT_IN_DB) {
-                            Toast.makeText(getContext(), "There's another movie running at that time", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "There is another movie that runs at the same date and time.", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getContext(), "Response Code: " + response.code(), Toast.LENGTH_LONG).show();
                         }
                     return;
                 }
-                Toast.makeText(getContext(), "Movie was successfully added to database", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Movie was successfully added to database.", Toast.LENGTH_LONG).show();
             }
 
             @Override
